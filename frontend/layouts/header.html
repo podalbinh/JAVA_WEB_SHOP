@@ -1,0 +1,118 @@
+<!-- Offcanvas Menu Begin -->
+<div class="offcanvas-menu-overlay"></div>
+<div class="offcanvas-menu-wrapper">
+    <div class="offcanvas__option">
+        <div class="offcanvas__links">
+            <a href="./signIn.html" id="dangnhap2">Đăng nhập</a>
+        </div>
+        <div class="offcanvas__top__hover" >
+            <span id="username2"></span>
+            <i class="arrow_carrot-down"></i>
+            <ul id="danhmuc2">
+            </ul>
+        </div>
+        <div class="offcanvas__top__hover">
+            <span>VND</span>
+        </div>
+    </div>
+    <div class="offcanvas__nav__option">
+        <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+        <a href="./shopping-cart.html" onclick="kiemtra(event)"><img src="img/icon/cart.png" alt=""> <span id="totalitem2"></span></a>
+    </div>
+    <div id="mobile-menu-wrap"></div>
+    <div class="offcanvas__text">
+        <p>Chìm đắm trong phong cách với LOMDOM </p>
+    </div>
+</div>
+<!-- Offcanvas Menu End -->
+<header class="header">
+    <div class="header__top">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-7">
+                    <div class="header__top__left">
+                        <p>Chìm đắm trong phong cách với LOMDOM </p>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-5">
+                    <div class="header__top__right">
+                        <div class="header__top__links">
+                            <a href="./signIn.html" id="dangnhap1">Đăng nhập</a>
+                        </div>
+                        <div class="header__top__hover" >
+                            <span id="username1"  style="padding-right: 15px;">
+                            </span>
+                            <ul id="danhmuc1" style="background-color: black; color: white;">
+                            </ul>
+                        </div>
+                        <div class="header__top__hover">
+                            <span>VND</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3">
+                <div class="header__logo">
+                    <a href="./index.html">
+                        <h3>LOMDOM</h1>
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+                <nav class="header__menu mobile-menu">
+                    <ul>
+                        <li id="trangchu"><a href="./index.html">Trang chủ</a></li>
+                        <li id="cuahang"><a href="./shop.html">Cửa hàng</a></li>
+                        <li id="gioithieu"><a href="./about.html">Giới thiệu</a></li>
+                        <li id="lienhe"><a href="./contact.html">Liên hệ</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="col-lg-3 col-md-3">
+                <div class="header__nav__option">
+                    <a href="#" class="search-switch"><img src="img/icon/search.png" alt=""></a>
+                    <a href="./shopping-cart.html" onclick="kiemtra(event)"><img src="img/icon/cart.png" alt=""> <span id="totalitem1"></span></a>
+                </div>
+            </div>
+        </div>
+        <div class="canvas__open"><i class="fa fa-bars"></i></div>
+    </div>
+</header>
+<div class="search-model">
+    <div class="h-100 d-flex align-items-center justify-content-center">
+        <div class="search-close-switch">+</div>
+        <form class="search-model-form" onsubmit="search(event)">
+            <input type="text" id="search-input" placeholder="Search here.....">
+        </form>
+    </div>
+</div>
+<script src="js/service.js"></script>
+<script src="js/main.js"></script>
+<script>
+    function load() {
+        var trangchu = document.getElementById("trangchu");
+        var cuahang = document.getElementById("cuahang");
+        var gioithieu = document.getElementById("gioithieu");
+        var lienhe = document.getElementById("lienhe");
+        var x = window.location.pathname;
+        if (x == "/index.html") {
+            trangchu.classList.add("active");
+        }
+        else if (x == "/shop.html") {
+            cuahang.classList.add("active");
+        }
+        else if (x == "/about.html") {
+            gioithieu.classList.add("active");
+
+        }
+        else if (x == "/contact.html") {
+            lienhe.classList.add("active");
+        }
+        return;
+    }
+    load();
+</script>

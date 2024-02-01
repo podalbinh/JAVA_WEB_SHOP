@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - 3308:3306
+    restart: always
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: web_2023
+      MYSQL_USER: trung
+      MYSQL_PASSWORD: root
+    volumes:
+      - ./seed:/docker-entrypoint-initdb.d
+  backend:
+    image: maven:3.8.6-jdk-11
+    ports:
+      - 8081:8081
+    working_dir: /example
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/web_2023?autoReconnect=true&useSSL=false&useUnicode=yes&characterEncoding=UTF-8
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.MySQL57Dialect
+    volumes:
+      - ./backend:/example
+    command: mvn spring-boot:run
+  nginx:
+    image: nginx:1.21.3
+    ports:
+      - 8008:80
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - backend
+volumes:
+  db:

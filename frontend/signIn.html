@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/dangnhap.css" />
+</head>
+
+<body>
+	<div class="container" id="container">
+		<div class="form-container sign-up-container">
+			<form onsubmit="xacnhandangky(event);">
+				<h1>Đăng Ký</h1>
+				<input type="text" class="truongnhap" id="emaildangky" placeholder="Email">
+				<div class="loi" id="loi_emaildangky"></div>
+				<input type="text" class="truongnhap" id="tendangky" placeholder="Nhập tên của bạn">
+				<div class="loi" id="loi_tendangky"></div>
+				<input type="text" class="truongnhap" id="phone" placeholder="Nhập SĐT của bạn">
+				<input type="password" id="matkhaudangky" class=" truongnhap password" placeholder="Nhập mật khẩu">
+				<div class="loi" id="loi_mat_khaudangky"></div>
+				<input type="password" id="matkhaudangkynhaplai" class="truong nhap password"
+					placeholder="Nhập lại mật khẩu">
+				<div class="loi" id="loi_mat_khaudangkynhaplai"></div>
+
+				<div class="truongnhap button">
+					<button type="submit" value="Đăng ký">Đăng Ký</button>
+				</div>
+			</form>
+		</div>
+		<div class="form-container sign-in-container">
+			<form onsubmit="dangnhap(event)">
+				<h1>Đăng Nhập</h1>
+				<input name="username" class="truongnhap" type="text" id="username" placeholder="Username">
+				<div class="loi" id="loi_email"></div>
+				<input name="password" type="password" id="matkhau" class="password" placeholder="Mật khẩu">
+				<div class="loi" id="loi_mat_khau"></div>
+				<div class="truongnhap button">
+					<button type="submit" value="Đăng nhập">Đăng Nhập</button>
+				</div>
+			</form>
+			<a href="#">Quên mặt khẩu?</a>
+			<button>Đăng Ký</button>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+					<h1>Chào Mừng Trở Lại!</h1>
+					<p>Đăng nhập để thoả thích mua sắm và dễ dàng hơn</p>
+					<button class="ghost" id="signIn">Đăng Nhập</button>
+				</div>
+				<div class="overlay-panel overlay-right">
+					<h1>Chào, Bạn!</h1>
+					<p>Hãy đăng ký để có ưu đãi đặc biệt từ chúng tôi</p>
+					<button class="ghost" id="signUp">Đăng Ký</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/jquery.min.js"></script>
+	<script src="js/dangnhap.js" type="text/javascript"></script>
+</body>
+
+</html>

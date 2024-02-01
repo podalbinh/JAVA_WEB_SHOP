@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> LOMDOM</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+        rel="stylesheet">
+
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Header Section Begin -->
+    <div id="header1"> </div>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Thanh Toán</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.html">Trang Chủ</a>
+                            <a href="./shop.html">Cửa Hàng</a>
+                            <span>Thanh Toán</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout Section Begin -->
+    <section class="checkout spad">
+        <div class="container"> 
+            <div class="checkout__form">
+                <form onsubmit = 'kiemTraDaDienDu()' action="#">
+                    <div class="row">
+                        <div class="col-lg-8 col-md-6">
+                            <!-- tiêu đề thông tin đơn hàng -->
+                            <h6 class="checkout__title">THÔNG TIN ĐƠN HÀNG</h6>
+                            <!-- họ đệm và tên của khách hàng -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Họ Đệm<span>*</span></p>
+                                        <input type="text" id = 'ho' onblur="checkIfEmpty()" placeholder="Họ Đệm">
+                                        <div class="loi" id = 'loi_ho'></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Tên<span>*</span></p>
+                                        <input type="text" id = 'ten' onblur="checkIfEmpty()" placeholder="Tên">
+                                        <div class = 'loi' id = 'loi_ten'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- địa chỉ nhận hàng của khách hàng -->
+                            <div class="checkout__input">
+                                <p>Địa chỉ<span>*</span></p>
+                                <input type="text" placeholder="Số nhà/tên đường, Phường, Quận, Thành phố" class="checkout__input__add" id = 'diachi' onblur="checkIfEmpty()">
+                                <div class = 'loi' id = 'loi_diachi'></div>                                
+                            </div>
+                            <!-- số điện thoại và email -->
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <p>Số điện thoại<span>*</span></p>
+                                        <input type="text" id = 'sdt' onblur="checkIfEmpty()" placeholder="Số điện thoại">
+                                        <div class="loi" id = 'loi_sdt'></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                        </div>
+                        <!-- thông tin chi tiết của hóa đơn khách hàng -->
+                        <div class="col-lg-4 col-md-6">
+                            <div class="checkout__order">
+                                <h4 class="order__title">Đơn hàng của bạn</h4>
+                                <div class="checkout__order__products">Sản phẩm<span>Tổng tiền</span></div>
+                                <ul class="checkout__total__products" id ='total_checkout'>
+                                    <!-- danh sách mặt hàng -->
+                                </ul>
+                                <ul class="checkout__total__all">
+                                    <li>Thành tiền<span id = 'total'></span></li>
+                                </ul>
+                                
+                                
+                                <div class="checkout__input__checkbox">
+                                    <span>*</span>Khách hàng thanh toán sau khi nhận hàng.
+                                </div>
+                                <!-- nút xác nhận đơn và thanh toán -->
+                                <button type="submit" class="site-btn" value="Đặt hàng" onclick="chotdon(event)">Đặt hàng</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+    <!-- Checkout Section End -->
+
+    <!-- Footer Section Begin -->
+    <div include-html="./layouts/footer.html"></div>
+    <!-- Footer Section End -->
+
+
+    <!-- Js Plugins -->
+    <!-- Js Plugins -->
+    <script type="text/javascript">
+        $(function () {
+            $("#header1").load("./layouts/header.html");
+        });
+    </script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="./js/general.js"></script>
+    <script type= "text/javascript" src="js/checkout.js"></script>
+</body>
+
+</html>
