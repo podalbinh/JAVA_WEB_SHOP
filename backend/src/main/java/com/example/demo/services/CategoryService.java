@@ -2,64 +2,19 @@ package com.example.demo.services;
 
 import com.example.demo.entities.Category;
 import com.example.demo.models.CategoryDTO;
-import com.example.demo.repositories.CategoryRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 
-@Service
-public class CategoryService {
+public interface CategoryService {
 
-    private final CategoryRepository categoryRepository;
+    public List<Category> findAll();
 
-    @Autowired
-    private ModelMapper modelMapper;
+    public Category get(final Long id);
 
-    public CategoryService(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public Long create(final CategoryDTO categoryDTO);
 
-    }
+    public Category update(final Long id, final CategoryDTO categoryDTO);
 
-    public List<Category> findAll() {
-        return categoryRepository.findAll();
-    }
-
-    public Category get(final Long id) {
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
-    public Long create(final CategoryDTO categoryDTO) {
-        final Category category = mapToEntity(categoryDTO, new Category());
-        return categoryRepository.save(category).getId();
-    }
-
-    public Category update(final Long id, final CategoryDTO categoryDTO) {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot find category with id: " + id));
-        category = mapToEntity(categoryDTO, category);
-        categoryRepository.save(category);
-        return category;
-    }
-
-    public void delete(final Long id) {
-        categoryRepository.deleteById(id);
-    }
-
-    private Category mapToEntity(final CategoryDTO categoryDTO, Category category) {
-        categoryDTO.setId(category.getId());
-        category = modelMapper.map(categoryDTO, Category.class);
-        if(categoryDTO.getParentCategory() != null) {
-            category.setParentCategory(categoryRepository.findById(categoryDTO.getParentCategory())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cannot find category with id: " + categoryDTO.getParentCategory())));
-        }
-        return category;
-    }
-
+    public void delete(final Long id);
 }
