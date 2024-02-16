@@ -9,7 +9,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: web_2023
-      MYSQL_USER: trung
+      MYSQL_USER: web_2023
       MYSQL_PASSWORD: root
     volumes:
       - ./seed:/docker-entrypoint-initdb.d
