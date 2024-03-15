@@ -8,13 +8,19 @@
 	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" href="css/dangnhap.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
 </head>
 
-<body>
+<body >
 	<div class="container" id="container">
 		<div class="form-container sign-up-container">
 			<form onsubmit="xacnhandangky(event);">
 				<h1>Đăng Ký</h1>
+				<div class="social-container">
+                    <a href="http://localhost:8081/oauth2/authorize/facebook" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href='http://localhost:8081/oauth2/authorize/google' class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="http://localhost:8081/oauth2/authorize/github" class="social"><i class="fab fa-github"></i></a>
+                </div>
 				<input type="text" class="truongnhap" id="emaildangky" placeholder="Email">
 				<div class="loi" id="loi_emaildangky"></div>
 				<input type="text" class="truongnhap" id="tendangky" placeholder="Nhập tên của bạn">
@@ -34,6 +40,11 @@
 		<div class="form-container sign-in-container">
 			<form onsubmit="dangnhap(event)">
 				<h1>Đăng Nhập</h1>
+				<div class="social-container">
+                    <a href="http://localhost:8081/oauth2/authorize/facebook" class="social"><i class="fab fa-facebook-f"></i></a>
+                    <a href='http://localhost:8081/oauth2/authorize/google' class="social"><i class="fab fa-google-plus-g"></i></a>
+                    <a href="http://localhost:8081/oauth2/authorize/github" class="social"><i class="fab fa-github" ></i></a>
+                </div>
 				<input name="username" class="truongnhap" type="text" id="username" placeholder="Username">
 				<div class="loi" id="loi_email"></div>
 				<input name="password" type="password" id="matkhau" class="password" placeholder="Mật khẩu">

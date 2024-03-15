@@ -1,4 +1,4 @@
-package com.example.demo.services.Imp;
+package com.example.demo.services.imp;
 
 import com.example.demo.entities.Category;
 import com.example.demo.models.CategoryDTO;

@@ -182,7 +182,7 @@ CREATE TABLE `product` (
 -- Dumping data for table `product`
 --
 
-INSERT INTO `product` (`id`, `description`, `image`, `instruction`, `materials`, `name`, `price`, `category_id`, `color_id`) VALUES
+INSERT INTO `product` (`id`, `description`, `image`, `instrucart_itemcart_itemcart_itemction`, `materials`, `name`, `price`, `category_id`, `color_id`) VALUES
 (2, 'Áo nỉ cổ tròn, dài tay. Phối dây khác màu tạo họa tiết hình cô gái ở phía trước. Bo viền bằng vải gân.', 'https://static.zara.net/photos///2023/I/0/1/p/0085/629/800/2/w/750/0085629800_6_1_1.jpg?ts=1695649108942', 'Giặt ở nhiệt độ thấp và sử dụng các chế độ vắt nhẹ nhàng sẽ có lợi hơn cho quần áo, giúp duy trì màu sắc, hình dạng và cấu trúc của vải.', 'LỚP NGOÀI\r\nVẢI CHÍNH\r\n61% vải cotton\r\n39% vải pôliexte\r\nVẢI PHỤ\r\n97% vải cotton\r\n3% elastane', 'ÁO NỈ THÊU DÂY TẠO HÌNH CÔ GÁI', 999000, 6, 1),
 (3, '- Chất liệu vải rayon-cotton mềm mại.\r\n- Phù hợp mặc thường xuyên.\r\n- Chiếc áo sơ mi cổ trụ đa năng này dễ dàng mặc vào hoặc cởi ra.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/446999/item/goods_00_446999.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ.', '53% Modal, 47% Bông.', 'Áo Sơ Mi Vải Cotton Modal Cổ Trụ Ngắn Tay', 588000, 1, 2),
 (4, '- Khóa kéo trước cùng màu với vải giúp tạo kiểu dễ dàng hơn.\r\n- Vải với độ co giãn đáng kinh ngạc giúp vận động dễ dàng.\r\n- Mềm mại và thoải mái.\r\n- Với công nghệ DRY.', 'https://image.uniqlo.com/UQ/ST3/AsianCommon/imagesgoods/450693/item/goods_03_450693.jpg?width=750', 'Giặt máy nước lạnh, giặt nhẹ, Không giặt khô', 'Thân: Lớp Lót Mũ Trùm: 48% Bông, 47% Polyeste, 5% Elastan/ Bo: 80% Bông, 20% Polyeste/ Vải Túi: Lớp Ngoài: 100% Polyeste/ Lớp Trong: 48% Bông, 47% Polyeste, 5% Elastan.', 'Áo Khoác Nỉ Siêu Co Giãn Dry Có Mũ Kéo Khóa Dài Tay', 489000, 5, 11),
@@ -912,6 +912,7 @@ CREATE TABLE `user` (
   `password` varchar(255) NOT NULL,
   `phone` varchar(255) DEFAULT NULL,
   `user_status` bit(1) DEFAULT NULL,
+  `provide_id` varchar(255)  DEFAULT NULL,
   `username` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

@@ -23,9 +23,10 @@
     <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
 </head>
 
-<body>
+<body >
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -197,6 +198,21 @@
         $(function () {
             $("#header1").load("./layouts/header.html");
         });
+
+            function handleCallback() {
+                console.log(21321321);
+                const urlParams = new URLSearchParams(window.location.search);
+                console.log(urlParams);
+                const token = urlParams.get('token');
+                console.log(token);
+                // Kiểm tra xem có token được trả về không
+                if (token) {
+                    // Lưu token vào local storage
+                    localStorage.setItem('token', token);
+                   location.href="index.html"; 
+                }
+              }
+        handleCallback();
     </script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>

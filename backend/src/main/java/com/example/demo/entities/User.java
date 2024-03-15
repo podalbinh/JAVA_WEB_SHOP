@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -46,14 +47,13 @@ public class User {
 
     @Column
     private String phone;
-
+    @Column
+    private String providerId;
     @Column
     private boolean userStatus;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name="User_Role",
-    joinColumns = @JoinColumn(name="user_id"),
-    inverseJoinColumns = @JoinColumn(name="role_id"))
-    private Set<Role> listRoles=new HashSet<>();
+    @ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
+    @JoinTable(name = "User_Role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> listRoles = new HashSet<>();
 
     @OneToMany(mappedBy = "user")
     private Set<CartItem> userCartItems;

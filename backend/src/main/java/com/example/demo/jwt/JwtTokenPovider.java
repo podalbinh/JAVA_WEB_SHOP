@@ -4,6 +4,7 @@ package com.example.demo.jwt;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.security.CustomUserDetails;
@@ -29,6 +30,16 @@ public class JwtTokenPovider {
         Date dateExpiration =new Date(now.getTime()+JWT_EXPIRATION);
         return Jwts.builder()
                     .setSubject(CustomUserDetails.getUsername())
+                    .setIssuedAt(now)
+                    .setExpiration(dateExpiration)
+                    .signWith(SignatureAlgorithm.HS512,JWT_SECRET)
+                    .compact();
+    }
+    public String generateToken(Authentication authentication){
+        Date now =new Date();
+        Date dateExpiration =new Date(now.getTime()+JWT_EXPIRATION);
+        return Jwts.builder()
+                    .setSubject(authentication.getName())
                     .setIssuedAt(now)
                     .setExpiration(dateExpiration)
                     .signWith(SignatureAlgorithm.HS512,JWT_SECRET)
