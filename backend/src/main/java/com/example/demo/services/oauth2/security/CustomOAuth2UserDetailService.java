@@ -56,7 +56,7 @@ public class CustomOAuth2UserDetailService extends DefaultOAuth2UserService {
             throw new RuntimeException("Can not found oauth2 user from properties");
         }
         Optional<User> user = userRepository.findByUsernameAndProviderId(
-                oAuth2UserDetails.getEmail(),
+                oAuth2UserDetails.getName(),
                 oAuth2UserRequest.getClientRegistration().getRegistrationId());
         User userDetail;
         if (user.isPresent()) {
@@ -80,7 +80,8 @@ public class CustomOAuth2UserDetailService extends DefaultOAuth2UserService {
 
     public User registerNewOAuth2USerDetail(OAuth2UserRequest oAuth2UserRequest, OAuth2UserDetails oAuth2UserDetails) {
         User user = new User();
-        user.setUsername(oAuth2UserDetails.getEmail());
+        user.setUsername(oAuth2UserDetails.getName());
+        user.setEmail(oAuth2UserDetails.getEmail());
         user.setProviderId(oAuth2UserRequest.getClientRegistration().getRegistrationId());
         user.setUserStatus(true);
         Set<Role> listRoles = new HashSet<>();
@@ -93,7 +94,8 @@ public class CustomOAuth2UserDetailService extends DefaultOAuth2UserService {
     }
 
     public User updateOAuth2UserDetail(User user, OAuth2UserDetails oAuth2UserDetails) {
-            user.setUsername(oAuth2UserDetails.getEmail());
+            user.setUsername(oAuth2UserDetails.getName());
+            user.setEmail(oAuth2UserDetails.getEmail());
             return userRepository.save(user);
     }
 }

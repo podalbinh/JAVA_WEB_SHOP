@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.example.demo.entities.User;
 import com.example.demo.models.UserDTO;
-
 public interface UserService {
 
     public boolean existsByEmail(String email);
@@ -23,4 +22,6 @@ public interface UserService {
     public Long create(UserDTO userDTO);
 
     public void delete(Long id);
+
+    public List<User> search(String query);
 }

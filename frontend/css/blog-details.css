@@ -1,0 +1,39 @@
+body {
+    background-color: white;
+    
+}
+
+.bdge {
+  height: 21px;
+  background-color: orange;
+  color: white;
+  font-size: 11px;
+  border-radius: 4px;
+  line-height: 3px;
+}
+
+.comments {
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  margin-top: 3px;
+  background-color: white;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.hit-voting:hover {
+  color: black;
+}
+.black{
+    background-color: #000000;
+    border-color: #000000;
+}
+.hit-voting {
+  cursor: pointer;
+}

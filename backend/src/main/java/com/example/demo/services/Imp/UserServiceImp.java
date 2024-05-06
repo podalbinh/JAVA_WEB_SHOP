@@ -1,6 +1,7 @@
 package com.example.demo.services.imp;
-
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -8,13 +9,19 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.example.demo.entities.ERole;
+import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
 import com.example.demo.models.UserDTO;
 import com.example.demo.repositories.UserRepository;
+import com.example.demo.services.RoleService;
 import com.example.demo.services.UserService;
+
+
 
 @Service
 @Transactional
@@ -23,9 +30,13 @@ public class UserServiceImp implements UserService {
     private ModelMapper modelMapper;
     @Autowired
     private UserRepository userRepository;
-
+    @Autowired
+    private RoleService roleService;
+    @Autowired
+    private PasswordEncoder encoder;
     private User mapToEntity(UserDTO userDTO, User user) {
         user = modelMapper.map(userDTO, User.class);
+        user.setPassword(encoder.encode(userDTO.getPassword()));
         return user;
     }
 
@@ -68,13 +79,52 @@ public class UserServiceImp implements UserService {
 
     @Override
     public Long create(UserDTO userDTO) {
-        final User user = new User();
-        mapToEntity(userDTO, user);
+        User user = new User();
+        user= mapToEntity(userDTO, user);
+        user.setUserStatus(true);
+        Set<String> roles = userDTO.getListRoles();
+        Set<Role> listRoles = new HashSet<>();
+        if (roles == null) {
+            // User quyen mac dinh
+            Role userRoles = roleService.findByRoleName(ERole.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Role is not found"));
+            listRoles.add(userRoles);
+        } else {
+            roles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                        Role adminRoles = roleService.findByRoleName(ERole.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Role is not found"));
+                        listRoles.add(adminRoles);
+                        break;
+                    case "moderator":
+                        Role modRoles = roleService.findByRoleName(ERole.ROLE_MODERATOR)
+                                .orElseThrow(() -> new RuntimeException("Role is not found"));
+                        listRoles.add(modRoles);
+                        break;
+                    case "user":
+                        Role userRoles = roleService.findByRoleName(ERole.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Role is not found"));
+                        listRoles.add(userRoles);
+                        break;
+                }
+            });
+        }
+        user.setListRoles(listRoles);
         return userRepository.save(user).getId();
     }
 
     @Override
     public void delete(Long id) {
         userRepository.deleteById(id);
+    }
+
+    @Override
+    public List<User> search(String query) {
+        List<User> user = userRepository.searchUser(query);
+        if (user.isEmpty()) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No user found with query: " + query);
+        }
+        return user;
     }
 }
