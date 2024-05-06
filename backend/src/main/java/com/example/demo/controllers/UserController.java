@@ -15,16 +15,19 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.security.AuthService;
 import com.example.demo.services.UserService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import com.example.demo.entities.User;
 import com.example.demo.models.UserDTO;
+import com.example.demo.payload.response.MessageResponse;
 
 @RestController
 @RequestMapping(value = "/api/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -33,35 +36,65 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AuthService authService;
-
+    @Operation(summary = "Get all User")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     @GetMapping
     public ResponseEntity<List<UserDTO>> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUser());
     }
-
+    @Operation(summary = "Get User By userId")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     @GetMapping("/{id}")
     public ResponseEntity<User> getUser(@PathVariable Long id) {
         return ResponseEntity.ok(userService.get(id));
     }
+    @Operation(summary = "Get current User")
     @GetMapping("/me")
     public ResponseEntity<User> me() {
         return ResponseEntity.ok(authService.getCurrentUser());
 
     }
-
-    @PostMapping
+    @Operation(summary = "Create User")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
-    @ApiResponse(responseCode = "201")
-    public ResponseEntity<Long> createUser(@RequestBody @Valid UserDTO userDTO) {
+    @PostMapping
+    public ResponseEntity<?> createUser(@RequestBody UserDTO userDTO) {
+        if (userService.existsByUsername(userDTO.getUsername())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Username is already"));
+        }
+        if (userService.existsByEmail(userDTO.getEmail())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Email is already"));
+        }
         return new ResponseEntity<>(userService.create(userDTO), HttpStatus.CREATED);
     }
-
+    @Operation(summary = "Search User")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
+    @GetMapping("/search")
+    public ResponseEntity<List<User>> searchUser(@RequestParam("query") String query) {
+        return ResponseEntity.ok(userService.search(query));
+    }
+    @Operation(summary = "Delete User")
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
-    public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+    public ResponseEntity<?> deleteUser(@PathVariable Long id) {
         userService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok(new String("Delete success!"));
     }
+    @Operation(summary = "Update user By ID with Admin")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("/{id}")
+    public ResponseEntity<?> saveOrUpdateUser(@PathVariable Long id,UserDTO userDTO) {
+        User user = userService.findById(id);
+        user.setPhone(userDTO.getPhone());
+        if (userService.existsByUsername(userDTO.getUsername())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Username is already"));
+        }
+        if (userService.existsByEmail(userDTO.getEmail())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Email is already"));
+        }
+        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getUsername());
+        userService.saveOrUpdate(user);
+        return ResponseEntity.ok(new String("Update success!"));
+    } 
 }

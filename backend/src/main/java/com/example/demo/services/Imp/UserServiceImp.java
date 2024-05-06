@@ -127,4 +127,10 @@ public class UserServiceImp implements UserService {
         }
         return user;
     }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository.findById(id)
+        .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
 }

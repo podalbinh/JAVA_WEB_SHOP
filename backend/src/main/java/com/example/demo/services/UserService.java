@@ -24,4 +24,6 @@ public interface UserService {
     public void delete(Long id);
 
     public List<User> search(String query);
+
+    public User findById(Long id);
 }
