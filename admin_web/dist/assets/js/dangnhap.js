@@ -1,82 +1,91 @@
 
 const container = document.getElementById('container');
 
-// kiểm tra định dạng email
-const kiemTraEmail = (email) => {
-  return email.match(
-    /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  );
-};
-
-//kiểm tra các trường nhập của đăng nhập
 function xacnhan(event) {
-  var giatriusername = document.getElementById("username").value.trim();
-  var giatrimatkhau = document.getElementById("matkhau").value.trim();
-  var username = document.getElementById("username");
-  var matkhau = document.getElementById("matkhau");
+  // Lấy giá trị từ các trường nhập liệu
+  const usernameValue = document.getElementById("username").value.trim();
+  const passwordValue = document.getElementById("matkhau").value.trim();
 
-  if (giatriusername == "") {
-    username.style.border = "1px solid #ff8471";
+  const username = document.getElementById("username");
+  const password = document.getElementById("matkhau");
+
+  let hasError = false;
+
+  // Kiểm tra username (email)
+  if (usernameValue === "") {
+    username.style.border = "1px solid #ff8471"; // Đổi màu border nếu có lỗi
     loi("loi_username", "Username không được bỏ trống");
-  } else if (!kiemTraEmail(giatriusername)) {
-    username.style.border = "1px solid #ff8471";
-    loi("loi_username", "Username sai");
+    hasError = true;
   } else {
-    username.style.border = "1px solid #7b5be4";
+    username.style.border = "1px solid #7b5be4"; // Đổi màu border nếu không có lỗi
     loi("loi_username", "");
   }
 
-  if (giatrimatkhau == "") {
-    matkhau.style.border = "1px solid #ff8471";
+  // Kiểm tra password
+  if (passwordValue === "") {
+    password.style.border = "1px solid #ff8471";
     loi("loi_mat_khau", "Mật khẩu không được bỏ trống");
-  } else if (giatrimatkhau.length < 8) {
-    matkhau.style.border = "1px solid #ff8471";
-    loi("loi_mat_khau", "Mật khẩu phải nhiều hơn 8 kí tự");
+    hasError = true;
+  } else if (passwordValue.length < 8) {
+    password.style.border = "1px solid #ff8471";
+    loi("loi_mat_khau", "Mật khẩu phải ít nhất 8 ký tự");
+    hasError = true;
   } else {
-    matkhau.style.border = "1px solid #7b5be4";
+    password.style.border = "1px solid #7b5be4";
     loi("loi_mat_khau", "");
   }
 
-  if (
-    giatriusername == "" ||
-    giatrimatkhau == "" ||
-    !kiemTraEmail(giatriusername) ||
-    giatrimatkhau.length < 8
-  ) {
-    event.preventDefault();
-    alert("Đăng nhập không thành công");
+  if (hasError) {
+    event.preventDefault(); // Ngăn chặn hành động mặc định của form nếu có lỗi
+    alert("Vui lòng kiểm tra các lỗi trên và thử lại.");
   } else {
-    return true;
+    return true; // Không có lỗi, cho phép gửi form
   }
 }
 
 function loi(id, message) {
-  document.getElementById(id).innerHTML = message;
+  document.getElementById(id).innerHTML = message; // Hiển thị thông báo lỗi
 }
 
-const api = "http://localhost:8081";
-
 async function dangnhap(event) {
-  event.preventDefault();
-  try{
-  fetch(`http://localhost:8081/api/v1/auth/signin`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      username: document.getElementById("username").value,
-      password: document.getElementById("matkhau").value,
-    }),
-  })
-    .then((res) => res.json())
-    .then((dt) => {
-      console.log(dt);
-      localStorage.setItem("token", dt.token);
-      window.location.href = "../../index.html";
-    });
-  }
-  catch{
+  event.preventDefault(); // Ngăn hành động mặc định
 
+  try {
+    // Chờ phản hồi từ API
+    const res = await fetch(`http://localhost:8081/api/v1/auth/signin`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: document.getElementById("username").value,
+        password: document.getElementById("matkhau").value,
+      }),
+    });
+
+    // Chờ lấy dữ liệu JSON từ phản hồi
+    const data = await res.json();
+
+    if (!res.ok) {
+      // Nếu phản hồi không OK, hiển thị lỗi
+      alert(`Đăng nhập không thành công: ${data.message || "Lỗi không xác định"}`);
+      return;
+    }
+
+    const userRoles = data.listRoles; // Lấy danh sách vai trò
+    console.log(userRoles);
+
+    if (userRoles.includes("ROLE_USER") && userRoles.length === 1) {
+      alert("Bạn không được phép truy cập.");
+      return;
+    }
+
+    // Lưu token và chuyển hướng
+    localStorage.setItem("token", data.token);
+    console.log(localStorage.getItem("token"));
+    window.location.href = "../../index.html"; // Chuyển hướng sau khi đăng nhập thành công
+  } catch (error) {
+    console.error("Lỗi khi đăng nhập:", error);
+    alert("Có lỗi xảy ra. Vui lòng thử lại.");
   }
 }

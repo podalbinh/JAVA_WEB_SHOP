@@ -30,8 +30,9 @@ public class Comment {
     @JsonManagedReference
     private User user;
 
-    @ManyToOne
-    @JsonManagedReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    @JsonBackReference
     private Post post;
 
     @CreationTimestamp

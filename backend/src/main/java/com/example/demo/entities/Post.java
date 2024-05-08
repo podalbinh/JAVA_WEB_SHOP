@@ -41,7 +41,7 @@ public class Post {
     private String imageUrl;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post")
-    @JsonBackReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "post", fetch = FetchType.LAZY)
+    @JsonManagedReference
     private List<Comment> comments;
 }

@@ -274,7 +274,6 @@ async function dathang() {
                 firstName: document.getElementById("ho").value,
                 lastName: document.getElementById('ten').value,
                 status: 1,
-                phoneNumber: document.getElementById('sdt').value
             })
         })
         console.log(res);

@@ -83,7 +83,7 @@ async function deleteUserService(userId) {
     return response;
 }
 //Cập nhật thông tin người dùng
-async function updateCartItemService(userId, username, email, phone) {
+async function updateUserService(userId, username, email, phone) {
   const users = await fetch(`${api}/api/users/${userId}`, {
     method: "PUT",
     headers: { 
@@ -96,8 +96,9 @@ async function updateCartItemService(userId, username, email, phone) {
       email: email,
       phone: phone
     }),
-  }).then((res) => res.json());
-  return users;
+  });
+  const updatedUser = await users.json();
+  return updatedUser;
 }
 
 let currentEditUserId = null;

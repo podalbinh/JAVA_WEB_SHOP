@@ -37,28 +37,18 @@
             <li class="nav-item nav-profile dropdown">
               <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <div class="nav-profile-text">
-                  <p class="mb-1 text-black">David Greymaax</p>
+                  <p class="mb-1 text-black user_name"></p>
                 </div>
               </a>
               <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item btn-sign-out" href="#">
                   <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
               </div>
             </li>
             <li class="nav-item d-none d-lg-block full-screen-link">
               <a class="nav-link">
                 <i class="mdi mdi-fullscreen" id="fullscreen-button"></i>
-              </a>
-            </li>
-            <li class="nav-item nav-logout d-none d-lg-block">
-              <a class="nav-link" href="#">
-                <i class="mdi mdi-power"></i>
-              </a>
-            </li>
-            <li class="nav-item nav-settings d-none d-lg-block">
-              <a class="nav-link" href="#">
-                <i class="mdi mdi-format-line-spacing"></i>
               </a>
             </li>
           </ul>
@@ -79,27 +69,40 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#icons" aria-expanded="false" aria-controls="icons">
+              <a class="nav-link" data-bs-toggle="collapse" href="#users" aria-expanded="false" aria-controls="icons">
                 <span class="menu-title">Users</span>
                 <i class="mdi mdi-contacts menu-icon"></i>
               </a>
-              <div class="collapse" id="icons">
+              <div class="collapse" id="users">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/users/users_management.html">Danh sách người dùng</a>
+                    <a class="nav-link" href="./pages/users/users_management.html">Users Management</a>
                   </li>
                 </ul>
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#forms" aria-expanded="false" aria-controls="forms">
-                <span class="menu-title">Forms</span>
-                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              <a class="nav-link" data-bs-toggle="collapse" href="#categories" aria-expanded="false" aria-controls="icons">
+                <span class="menu-title">Categories</span>
+                <i class="mdi mdi-basket menu-icon"></i>
               </a>
-              <div class="collapse" id="forms">
+              <div class="collapse" id="categories">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/forms/basic_elements.html">Form Elements</a>
+                    <a class="nav-link" href="./pages/categories/categories_management.html">Categories Management</a>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" data-bs-toggle="collapse" href="#posts" aria-expanded="false" aria-controls="forms">
+                <span class="menu-title">Posts</span>
+                <i class="mdi mdi-format-list-bulleted menu-icon"></i>
+              </a>
+              <div class="collapse" id="posts">
+                <ul class="nav flex-column sub-menu">
+                  <li class="nav-item">
+                    <a class="nav-link" href="./pages/posts/posts_management.html">Posts Management</a>
                   </li>
                 </ul>
               </div>
@@ -118,14 +121,14 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#tables" aria-expanded="false" aria-controls="tables">
-                <span class="menu-title">Tables</span>
+              <a class="nav-link" data-bs-toggle="collapse" href="#orders" aria-expanded="false" aria-controls="tables">
+                <span class="menu-title">Orders</span>
                 <i class="mdi mdi-table-large menu-icon"></i>
               </a>
-              <div class="collapse" id="tables">
+              <div class="collapse" id="orders">
                 <ul class="nav flex-column sub-menu">
                   <li class="nav-item">
-                    <a class="nav-link" href="pages/tables/basic-table.html">Basic table</a>
+                    <a class="nav-link" href="./pages/orders/orders_management.html">Orders Management</a>
                   </li>
                 </ul>
               </div>
@@ -155,12 +158,6 @@
                   </li>
                 </ul>
               </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="docs/documentation.html" target="_blank">
-                <span class="menu-title">Documentation</span>
-                <i class="mdi mdi-file-document-box menu-icon"></i>
-              </a>
             </li>
           </ul>
         </nav>
@@ -197,10 +194,9 @@
                 <div class="card bg-gradient-info card-img-holder text-white">
                   <div class="card-body">
                     <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Weekly Orders <i class="mdi mdi-bookmark-outline mdi-24px float-end"></i>
+                    <h4 class="font-weight-normal mb-3">Orders <i class="mdi mdi-bookmark-outline mdi-24px float-end"></i>
                     </h4>
-                    <h2 class="mb-5">45,6334</h2>
-                    <h6 class="card-text">Decreased by 10%</h6>
+                    <h2 class="mb-5 orders_quantity"></h2>
                   </div>
                 </div>
               </div>
@@ -208,10 +204,9 @@
                 <div class="card bg-gradient-success card-img-holder text-white">
                   <div class="card-body">
                     <img src="assets/images/dashboard/circle.svg" class="card-img-absolute" alt="circle-image" />
-                    <h4 class="font-weight-normal mb-3">Visitors Online <i class="mdi mdi-diamond mdi-24px float-end"></i>
+                    <h4 class="font-weight-normal mb-3">Users Online <i class="mdi mdi-diamond mdi-24px float-end"></i>
                     </h4>
-                    <h2 class="mb-5">95,5741</h2>
-                    <h6 class="card-text">Increased by 5%</h6>
+                    <h2 class="mb-5 users_quantity"></h2>
                   </div>
                 </div>
               </div>
@@ -526,6 +521,9 @@
     <!-- endinject -->
     <!-- Custom js for this page -->
     <script src="assets/js/dashboard.js"></script>
+    <script src="./assets/js/general.js"></script>
+    <script src="./assets/js/getNameAndSignOut.js"></script>
+    <script src="./assets/js/index.js"></script>
     <!-- End custom js for this page -->
   </body>
 </html>
