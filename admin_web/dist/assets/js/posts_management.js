@@ -36,7 +36,7 @@ async function getPostByIdService(id) {
 }
 
 // Thêm người dùng mới
-async function addPostService(post) {
+async function addPostService(title, desc, imageUrl) {
   const response = await fetch(`${api}/api/v1/posts`, {
     method: "POST",
     headers: {
@@ -44,11 +44,15 @@ async function addPostService(post) {
       Accept: "application/json",
       Authorization: "Bearer " + localStorage.getItem("token"),
     },
-    body: JSON.stringify(post),
+    body: JSON.stringify(
+      {title: title,
+      body: desc,
+      imageUrl: imageUrl}
+    ),
   });
 
   if (!response.ok) {
-    throw new Error("Failed to add user");
+    throw new Error("Failed to add post");
   }
 
   const newPost = await response.json();
@@ -124,17 +128,19 @@ const cancelAddPostButton = document.querySelector("#addPostModal .btn-secondary
 
 // Sự kiện nhấn nút Confirm trong modal
 confirmAddPostButton.addEventListener("click", async () => {
-  const postTitle = document.getElementById("postTitle").value;
-  const postBody = document.getElementById("postBody").value;
-  const postImageUrl= document.getElementById("postImageUrl").value;
-
+  const postTitle = document.getElementById("postTitle").value.trim();
+  console.log(postTitle);
+  const postBody = document.getElementById("postBody").value.trim();
+  console.log(postBody);
+  const postImageUrl= document.getElementById("postImageUrl").value.trim();
+  console.log(postImageUrl);
   if (currentEditPostId) { // Nếu đang chỉnh sửa
     await updatePostService(currentEditPostId, postTitle, postBody, postImageUrl);
     currentEditPostId = null; // Đặt lại sau khi chỉnh sửa
     addPostModalLabel.textContent = "Add New Post"; // Đặt lại tiêu đề
   } else { // Nếu là thêm mới
-    const newPost = { postTitle, postBody, postImageUrl};
-    await addPostService(newPost);
+    
+    await addPostService(postTitle, postBody, postImageUrl);
   }
 
   // Đóng modal và đặt lại các trường
