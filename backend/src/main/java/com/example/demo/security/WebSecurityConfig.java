@@ -61,6 +61,8 @@ public class WebSecurityConfig {
                 .antMatchers("/api/v1/sizes/**").permitAll()
                 .antMatchers("/api/v1/posts/**").permitAll()
                 .antMatchers("/api/v1/comments/**").permitAll()
+                .antMatchers("/api/v1/orders/**").permitAll()
+                .antMatchers("/api/v1/order-statuses/**").permitAll()
                 .antMatchers("/api/users/**").permitAll()
                 .antMatchers("/swagger-ui/**","/v3/**","/authenticate","/swagger-resources/**").permitAll()
                 .anyRequest().authenticated()

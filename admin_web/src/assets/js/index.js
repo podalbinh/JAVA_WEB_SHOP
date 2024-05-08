@@ -1,530 +1,41 @@
-const orders=[
-    {
-      "id": 1,
-      "total": 500000,
-      "address": "123 Main St",
-      "phone": "555-1234",
-      "firstName": "John",
-      "lastName": "Doe",
-      "status": {
-        "id": 1,
-        "name": "Pending",
-        "description": "Waiting for confirmation"
-      },
-      "orderItems": [
-        {
-          "id": 1,
-          "quantity": 2,
-          "name": "T-shirt",
-          "price": 25,
-          "order": "123ABC",
-          "product": {
-            "id": 1,
-            "name": "Basic T-shirt",
-            "description": "A simple t-shirt",
-            "color": {
-              "id": 1,
-              "name": "White",
-              "image": "white.jpg"
-            },
-            "materials": "Cotton",
-            "listSizes": [
-              {
-                "sizeId": 1,
-                "name": "Small"
-              },
-              {
-                "sizeId": 2,
-                "name": "Medium"
-              },
-              {
-                "sizeId": 3,
-                "name": "Large"
-              }
-            ],
-            "image": "tshirt.jpg",
-            "instruction": "Machine wash cold",
-            "price": 25,
-            "category": {
-              "id": 1,
-              "name": "Clothing",
-              "parentCategory": "Apparel"
-            }
-          },
-          "size": {
-            "sizeId": 2,
-            "name": "Medium"
-          }
-        }
-      ],
-      "user": {
-        "id": 1,
-        "username": "johndoe",
-        "email": "john@example.com",
-        "created": "2024-05-300T09:38:16.926Z",
-        "phone": "555-1234",
-        "providerId": "123XYZ",
-        "userStatus": true,
-        "listRoles": [
-          {
-            "roleId": 1,
-            "rolename": "ROLE_USER"
-          }
-        ],
-        "userCartItems": [
-          {
-            "id": 1,
-            "quantity": 1,
-            "product": {
-              "id": 2,
-              "name": "Jeans",
-              "description": "Blue denim jeans",
-              "color": {
-                "id": 2,
-                "name": "Blue",
-                "image": "blue.jpg"
-              },
-              "materials": "Denim",
-              "listSizes": [
-                {
-                  "sizeId": 1,
-                  "name": "Small"
-                },
-                {
-                  "sizeId": 2,
-                  "name": "Medium"
-                },
-                {
-                  "sizeId": 3,
-                  "name": "Large"
-                }
-              ],
-              "image": "jeans.jpg",
-              "instruction": "Wash separately",
-              "price": 50,
-              "category": {
-                "id": 1,
-                "name": "Clothing",
-                "parentCategory": "Apparel"
-              }
-            },
-            "size": {
-              "sizeId": 3,
-              "name": "Large"
-            }
-          }
-        ]
-      },
-      "createdAt": "2024-04-30T09:38:16.926Z",
-      "updatedAt": "2024-05-07T09:38:16.926Z"
-    },
-    {
-      "id": 2,
-      "total": 30000,
-      "address": "456 Oak St",
-      "phone": "555-5678",
-      "firstName": "Jane",
-      "lastName": "Smith",
-      "status": {
-        "id": 2,
-        "name": "Shipped",
-        "description": "Items have been shipped"
-      },
-      "orderItems": [
-        {
-          "id": 2,
-          "quantity": 1,
-          "name": "Sweater",
-          "price": 30,
-          "order": "456DEF",
-          "product": {
-            "id": 3,
-            "name": "Knit Sweater",
-            "description": "Warm winter sweater",
-            "color": {
-              "id": 3,
-              "name": "Gray",
-              "image": "gray.jpg"
-            },
-            "materials": "Wool",
-            "listSizes": [
-              {
-                "sizeId": 1,
-                "name": "Small"
-              },
-              {
-                "sizeId": 2,
-                "name": "Medium"
-              },
-              {
-                "sizeId": 3,
-                "name": "Large"
-              }
-            ],
-            "image": "sweater.jpg",
-            "instruction": "Hand wash only",
-            "price": 30,
-            "category": {
-              "id": 1,
-              "name": "Clothing",
-              "parentCategory": "Apparel"
-            }
-          },
-          "size": {
-            "sizeId": 1,
-            "name": "Small"
-          }
-        }
-      ],
-      "user": {
-        "id": 2,
-        "username": "janesmith",
-        "email": "jane@example.com",
-        "created": "2024-05-07T09:38:16.926Z",
-        "phone": "555-5678",
-        "providerId": "456ABC",
-        "userStatus": true,
-        "listRoles": [
-          {
-            "roleId": 1,
-            "rolename": "ROLE_USER"
-          }
-        ],
-        "userCartItems": []
-      },
-      "createdAt": "2024-05-07T09:38:16.926Z",
-      "updatedAt": "2024-05-07T09:38:16.926Z"
-    },
-    {
-      "id": 3,
-      "total": 45000,
-      "address": "789 Elm St",
-      "phone": "555-9012",
-      "firstName": "Alice",
-      "lastName": "Johnson",
-      "status": {
-        "id": 1,
-        "name": "Pending",
-        "description": "Waiting for confirmation"
-      },
-      "orderItems": [
-        {
-          "id": 3,
-          "quantity": 3,
-          "name": "Dress",
-          "price": 15,
-          "order": "789GHI",
-          "product": {
-            "id": 4,
-            "name": "Summer Dress",
-            "description": "Lightweight floral dress",
-            "color": {
-              "id": 4,
-              "name": "Pink",
-              "image": "pink.jpg"
-            },
-            "materials": "Cotton",
-            "listSizes": [
-              {
-                "sizeId": 1,
-                "name": "Small"
-              },
-              {
-                "sizeId": 2,
-                "name": "Medium"
-              },
-              {
-                "sizeId": 3,
-                "name": "Large"
-              }
-            ],
-            "image": "dress.jpg",
-            "instruction": "Gentle cycle",
-            "price": 15,
-            "category": {
-              "id": 1,
-              "name": "Clothing",
-              "parentCategory": "Apparel"
-            }
-          },
-          "size": {
-            "sizeId": 1,
-            "name": "Small"
-          }
-        }
-      ],
-      "user": {
-        "id": 3,
-        "username": "alicejohnson",
-        "email": "alice@example.com",
-        "created": "2024-05-07T09:38:16.926Z",
-        "phone": "555-9012",
-        "providerId": "789XYZ",
-        "userStatus": true,
-        "listRoles": [
-          {
-            "roleId": 1,
-            "rolename": "ROLE_USER"
-          }
-        ],
-        "userCartItems": []
-      },
-      "createdAt": "2024-05-07T09:38:16.926Z",
-      "updatedAt": "2024-05-07T09:38:16.926Z"
-    },
-    {
-      "id": 4,
-      "total": 6000,
-      "address": "101 Maple St",
-      "phone": "555-3456",
-      "firstName": "David",
-      "lastName": "Brown",
-      "status": {
-        "id": 2,
-        "name": "Shipped",
-        "description": "Items have been shipped"
-      },
-      "orderItems": [
-        {
-          "id": 4,
-          "quantity": 2,
-          "name": "Jacket",
-          "price": 30,
-          "order": "101JKL",
-          "product": {
-            "id": 5,
-            "name": "Leather Jacket",
-            "description": "Classic black leather jacket",
-            "color": {
-              "id": 5,
-              "name": "Black",
-              "image": "black.jpg"
-            },
-            "materials": "Leather",
-            "listSizes": [
-              {
-                "sizeId": 1,
-                "name": "Small"
-              },
-              {
-                "sizeId": 2,
-                "name": "Medium"
-              },
-              {
-                "sizeId": 3,
-                "name": "Large"
-              }
-            ],
-            "image": "jacket.jpg",
-            "instruction": "Professional leather cleaning",
-            "price": 30,
-            "category": {
-              "id": 2,
-              "name": "Outerwear",
-              "parentCategory": "Apparel"
-            }
-          },
-          "size": {
-            "sizeId": 3,
-            "name": "Large"
-          }
-        }
-      ],
-      "user": {
-        "id": 4,
-        "username": "davidbrown",
-        "email": "david@example.com",
-        "created": "2024-05-07T09:38:16.926Z",
-        "phone": "555-3456",
-        "providerId": "101XYZ",
-        "userStatus": true,
-        "listRoles": [
-          {
-            "roleId": 1,
-            "rolename": "ROLE_USER"
-          }
-        ],
-        "userCartItems": []
-      },
-      "createdAt": "2024-05-07T09:38:16.926Z",
-      "updatedAt": "2024-05-07T09:38:16.926Z"
-    },
-    {
-      "id": 5,
-      "total": 700000,
-      "address": "202 Pine St",
-      "phone": "555-6789",
-      "firstName": "Emily",
-      "lastName": "Wilson",
-      "status": {
-        "id": 1,
-        "name": "Pending",
-        "description": "Waiting for confirmation"
-      },
-      "orderItems": [
-        {
-          "id": 5,
-          "quantity": 1,
-          "name": "Boots",
-          "price": 70,
-          "order": "202MNO",
-          "product": {
-            "id": 6,
-            "name": "Leather Boots",
-            "description": "Stylish black leather boots",
-            "color": {
-              "id": 5,
-              "name": "Black",
-              "image": "black.jpg"
-            },
-            "materials": "Leather",
-            "listSizes": [
-              {
-                "sizeId": 1,
-                "name": "Small"
-              },
-              {
-                "sizeId": 2,
-                "name": "Medium"
-              },
-              {
-                "sizeId": 3,
-                "name": "Large"
-              }
-            ],
-            "image": "boots.jpg",
-            "instruction": "Keep away from moisture",
-            "price": 70,
-            "category": {
-              "id": 3,
-              "name": "Footwear",
-              "parentCategory": "Apparel"
-            }
-          },
-          "size": {
-            "sizeId": 2,
-            "name": "Medium"
-          }
-        }
-      ],
-      "user": {
-        "id": 5,
-        "username": "emilywilson",
-        "email": "emily@example.com",
-        "created": "2024-05-07T09:38:16.926Z",
-        "phone": "555-6789",
-        "providerId": "202ABC",
-        "userStatus": true,
-        "listRoles": [
-          {
-            "roleId": 1,
-            "rolename": "ROLE_USER"
-          }
-        ],
-        "userCartItems": []
-      },
-      "createdAt": "2024-05-07T09:38:16.926Z",
-      "updatedAt": "2024-05-07T09:38:16.926Z"
-    }
-]
-const user = [
-    {
-      "username": "alice_smith",
-      "password": "alicepass",
-      "email": "alice.smith@example.com",
-      "phone": "555-5678",
-      "created": "2024-05-07T10:17:51.300Z",
-      "userStatus": true,
-      "listRoles": [
-        "user"
-      ]
-    },
-    {
-      "username": "bob_johnson",
-      "password": "bobpass",
-      "email": "bob.johnson@example.com",
-      "phone": "555-9012",
-      "created": "2024-05-07T10:25:15.300Z",
-      "userStatus": true,
-      "listRoles": [
-        "user"
-      ]
-    },
-    {
-      "username": "emma_davis",
-      "password": "emmapass",
-      "email": "emma.davis@example.com",
-      "phone": "555-3456",
-      "created": "2024-05-07T10:32:40.300Z",
-      "userStatus": true,
-      "listRoles": [
-        "user"
-      ]
-    },
-    {
-      "username": "charlie_brown",
-      "password": "charliepass",
-      "email": "charlie.brown@example.com",
-      "phone": "555-6789",
-      "created": "2024-05-07T10:40:03.300Z",
-      "userStatus": true,
-      "listRoles": [
-        "user"
-      ]
-    },
-    {
-      "username": "olivia_taylor",
-      "password": "oliviapass",
-      "email": "olivia.taylor@example.com",
-      "phone": "555-1234",
-      "created": "2024-05-07T10:47:27.300Z",
-      "userStatus": true,
-      "listRoles": [
-        "user"
-      ]
-    }
-  ]
-  
+
 const api = "http://localhost:8081";
 const doanh_thu = document.getElementById("doanh_thu");
 const orders_week = document.getElementById("orders_week");
 const total_user = document.getElementById("total_user");
 async function load_orders() {
-    // const response = await fetch(`${api}/api/v1/orders`, {
-    //   method: "GET",
-    //   headers: { 
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //     Authorization: "Bearer " + localStorage.getItem("token"),
-    //   },
-    // }).then((res)=> res.json());
-    // const response1 = await fetch(`${api}/api/users`, {
-    //   method: "GET",
-    //   headers: { 
-    //     "Content-Type": "application/json",
-    //     Accept: "application/json",
-    //     Authorization: "Bearer " + localStorage.getItem("token"),
-    //   },
-    // }).then((res)=> res.json());
+    const response = await fetch(`${api}/api/v1/orders`, {
+      method: "GET",
+      headers: { 
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }).then((res)=> res.json());
+    const response1 = await fetch(`${api}/api/users`, {
+      method: "GET",
+      headers: { 
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: "Bearer " + localStorage.getItem("token"),
+      },
+    }).then((res)=> res.json());
     // Lấy ngày hiện tại
     const currentDate = new Date();
     // Tìm ngày đầu tiên của tuần hiện tại (tính từ ngày thứ hai)
     const firstDayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() - currentDate.getDay() + 1);
     // Tìm ngày cuối cùng của tuần hiện tại (tính từ ngày Chủ nhật)
     const lastDayOfWeek = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate() + (6 - currentDate.getDay() + 1));
-    // Chuyển đổi ngày thành định dạng chuỗi ISO (YYYY-MM-DD)
-    const formattedFirstDayOfWeek = firstDayOfWeek.toISOString().split('T')[0];
-    const formattedLastDayOfWeek = lastDayOfWeek.toISOString().split('T')[0];
     // Lọc ra các đơn hàng có ngày tạo trong khoảng thời gian của tuần hiện tại
-    const ordersInCurrentWeek = orders.filter(order => {
+    const ordersInCurrentWeek = response.filter(order => {
         const orderDate = new Date(order.createdAt);
         return orderDate >= firstDayOfWeek && orderDate <= lastDayOfWeek;
     });
-    let total_weak = 0;
-    ordersInCurrentWeek.forEach((ele) => (total_weak+=ele.total));
-    doanh_thu.innerHTML+=doanh_thu_tuan(total_weak);
+    let total_week = 0;
+    ordersInCurrentWeek.forEach((ele) => (total_week+=ele.total));
+    doanh_thu.innerHTML+=doanh_thu_tuan(total_week);
     orders_week.innerHTML+=order_tuan(ordersInCurrentWeek.length);
-    total_user.innerHTML+=nguoi_dung(user.length);
+    total_user.innerHTML+=nguoi_dung(response1.length);
 }
 function numberToVnd(number) {
     var formatter = new Intl.NumberFormat("vn-VN", {
@@ -595,7 +106,12 @@ async function deleteProduct(productId) {
     const confirmed = confirm("Bạn có chắc là xóa sản phẩm này không?");
     if (confirmed) {
         fetch(`${api}/api/v1/products/${productId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: { 
+              "Content-Type": "application/json",
+              Accept: "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
+          }
         }).then(response => {
             if (response.ok) {
                 loadTableProduct();
@@ -740,22 +256,13 @@ async function submit() {
       category: parseInt(selectedCategory) // Đảm bảo rằng selectedCategory là id của danh mục
   };
   console.log(formData); 
-  // const updateProduct = await fetch(`${api}/api/v1/products/${product_id}`, {
-  //     method: "PUT",
-  //     headers: { 
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //       Authorization: "Bearer " + localStorage.getItem("token")
-  //     },
-  //     body:formData ,
-  //     }
-  // )
   try {
       const updateProduct = await fetch(`${api}/api/v1/products/`, {
           method: "POST",
           headers: { 
               "Content-Type": "application/json",
-              Accept: "application/json"
+              Accept: "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
           },
           body: JSON.stringify(formData) // Chuyển đối tượng JSON thành chuỗi JSON
       });
@@ -915,22 +422,14 @@ async function submit1(productId) {
       category: parseInt(selectedCategory) // Đảm bảo rằng selectedCategory là id của danh mục
   };
   console.log(formData); 
-  // const updateProduct = await fetch(`${api}/api/v1/products/${product_id}`, {
-  //     method: "PUT",
-  //     headers: { 
-  //       "Content-Type": "application/json",
-  //       Accept: "application/json",
-  //       Authorization: "Bearer " + localStorage.getItem("token")
-  //     },
-  //     body:formData ,
-  //     }
-  // )
+
   try {
       const updateProduct = await fetch(`${api}/api/v1/products/${productId}`, {
           method: "PUT",
           headers: { 
               "Content-Type": "application/json",
-              Accept: "application/json"
+              Accept: "application/json",
+              Authorization: "Bearer " + localStorage.getItem("token")
           },
           body: JSON.stringify(formData) // Chuyển đối tượng JSON thành chuỗi JSON
       });

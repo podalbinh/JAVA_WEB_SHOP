@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<title>Login</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="../../assets/css/login/dangnhap.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+</head>
+
+<body >
+	<div class="container" id="container">
+		<div class="form-container sign-in-container">
+			<form onsubmit="dangnhap(event)">
+				<h1>Đăng Nhập</h1>
+				<input name="username" class="truongnhap" type="text" id="username" placeholder="Username">
+				<div class="loi" id="loi_username"></div>
+				<input name="password" type="password" id="matkhau" class="password" placeholder="Mật khẩu">
+				<div class="loi" id="loi_mat_khau"></div>
+				<div class="truongnhap button">
+					<button id="submit" type="submit" value="Đăng nhập" onclick="xacnhan(event)">Đăng Nhập</button>
+				</div>
+			</form>
+		</div>
+		<div class="overlay-container">
+			<div class="overlay">
+			</div>
+		</div>
+	</div>
+	<script src="../../assets/js/jquery.min.js"></script>
+	<script src="../../assets/js/dangnhap.js" type="text/javascript"></script>
+</body>
+
+</html>

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -44,18 +45,21 @@ public class SizeController {
         return ResponseEntity.ok(sizeService.get(id));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')" )
     @PostMapping
     @ApiResponse(responseCode = "201")
     public ResponseEntity<Long> createSize(@RequestBody @Valid final SizeDTO sizeDTO) {
         return new ResponseEntity<>(sizeService.create(sizeDTO), HttpStatus.CREATED);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')" )
     @PutMapping("/{id}")
     public ResponseEntity<Size> updateSize(@PathVariable final Long id,
             @RequestBody @Valid final SizeDTO sizeDTO) {
         return ResponseEntity.ok(sizeService.update(id, sizeDTO));
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')" )
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
     public ResponseEntity<Void> deleteSize(@PathVariable final Long id) {

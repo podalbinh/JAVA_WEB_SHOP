@@ -27,7 +27,12 @@ async function deleteColor(colorId) {
     const confirmed = confirm("Bạn có chắc là xóa color này không?");
     if (confirmed) {
         fetch(`${api}/api/v1/colors/${colorId}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: { 
+                "Content-Type": "application/json",
+                Accept: "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token")
+            }
         }).then(response => {
             if (response.ok) {
                 loadTableColor();
@@ -106,22 +111,13 @@ async function submit() {
         name: nameInput
     };
     console.log(formData); 
-    // const updateProduct = await fetch(`${api}/api/v1/products/${product_id}`, {
-    //     method: "PUT",
-    //     headers: { 
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //       Authorization: "Bearer " + localStorage.getItem("token")
-    //     },
-    //     body:formData ,
-    //     }
-    // )
     try {
         const updateProduct = await fetch(`${api}/api/v1/colors/`, {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
-                Accept: "application/json"
+                Accept: "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token")
             },
             body: JSON.stringify(formData) // Chuyển đối tượng JSON thành chuỗi JSON
         });
@@ -150,22 +146,13 @@ async function submit() {
         name: nameInput
     };
     console.log(formData); 
-    // const updateProduct = await fetch(`${api}/api/v1/products/${product_id}`, {
-    //     method: "PUT",
-    //     headers: { 
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //       Authorization: "Bearer " + localStorage.getItem("token")
-    //     },
-    //     body:formData ,
-    //     }
-    // )
     try {
         const updateProduct = await fetch(`${api}/api/v1/colors/${colorId}`, {
             method: "PUT",
             headers: { 
                 "Content-Type": "application/json",
-                Accept: "application/json"
+                Accept: "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token")
             },
             body: JSON.stringify(formData) // Chuyển đối tượng JSON thành chuỗi JSON
         });

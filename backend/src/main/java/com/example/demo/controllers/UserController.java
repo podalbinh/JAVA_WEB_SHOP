@@ -82,9 +82,10 @@ public class UserController {
     @Operation(summary = "Update user By ID with Admin")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<?> saveOrUpdateUser(@PathVariable Long id,UserDTO userDTO) {
+    public ResponseEntity<?> saveOrUpdateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         User user = userService.findById(id);
         user.setPhone(userDTO.getPhone());
+        System.out.println(userDTO.getPhone());
         if (userService.existsByUsername(userDTO.getUsername())) {
             return ResponseEntity.badRequest().body(new MessageResponse("Username is already"));
         }

@@ -60,7 +60,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.update(id, productDTO));
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')" )
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')")
     @DeleteMapping("/{id}")
     @ApiResponse(responseCode = "204")
     public ResponseEntity<Void> deleteProduct(@PathVariable final Long id) {
