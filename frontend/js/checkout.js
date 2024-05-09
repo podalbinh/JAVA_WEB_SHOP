@@ -219,6 +219,7 @@ function kiemTraDaDienDu(event) {
 
 //kiểm tra đã điền đủ thông tin và có hàng thì mới thanh toán được
 async function chotdon(event){
+    event.preventDefault();
     if(token === '') {
         alert('Yêu cầu đăng nhập trước khi mua hàng');
         console.log('phai dang nhap');

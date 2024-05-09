@@ -1,6 +1,6 @@
 // Lấy tất cả đơn hàng từ API
 async function getAllOrders() {
-    const response = await fetch(`${api}/api/v1/orders`, {
+    const response = await fetch(`${api}/api/v1/orders/admin`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -34,8 +34,8 @@ async function loadOrdersToTable() {
             <td>${order.phone}</td>  
             <td>${order.address}</td>  
             <td>${order.total}</td>  
-            <td>
-                <select "class="form-select status-dropdown" data-order-id="${order.id}">
+            <td class="p-0">
+                <select class="form-select status-dropdown" data-order-id="${order.id}">
                     ${statusOptions} <!-- Các tùy chọn trạng thái -->
                 </select>
             </td>

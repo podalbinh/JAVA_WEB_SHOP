@@ -22,4 +22,5 @@ public interface OrderService {
     public void update(final Long id, final OrderDTO orderDTO);
 
     public void delete(final Long id);
+    public List<Order> findAllByAdmin();
 }

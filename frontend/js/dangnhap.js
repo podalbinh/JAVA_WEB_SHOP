@@ -145,7 +145,7 @@ const api = "http://localhost:8081";
 async function dangnhap(event) {
   event.preventDefault();
   try{
-  fetch(`http://localhost:8081/api/v1/auth/signin`, {
+  const res = await fetch(`http://localhost:8081/api/v1/auth/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -155,15 +155,18 @@ async function dangnhap(event) {
       password: document.getElementById("matkhau").value,
     }),
   })
-    .then((res) => res.json())
-    .then((dt) => {
-      console.log(dt);
-      localStorage.setItem("token", dt.token);
+  const data = await res.json();
+    if (!res.ok) {
+      // Nếu phản hồi không OK, hiển thị lỗi
+      alert(`Đăng nhập không thành công: ${data.message || "Lỗi không xác định"}`);
+      return;
+    }
+      localStorage.setItem("token", data.token);
       window.location.href = "index.html";
-    });
   }
-  catch{
-
+  catch (error) {
+    console.error("Lỗi khi đăng nhập:", error);
+    alert("Có lỗi xảy ra. Vui lòng thử lại.");
   }
 }
 async function dangky() {

@@ -60,6 +60,10 @@ public class OrderServiceImp implements OrderService {
     public List<Order> findAll() {
         return orderRepository.findAllByUserId(authService.getCurrentUserId());
     }
+    @Override
+    public List<Order> findAllByAdmin() {
+        return orderRepository.findAll();
+    }
 
     @Override
     public Order get(Long id) {

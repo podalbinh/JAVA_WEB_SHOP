@@ -62,6 +62,7 @@
     $(function () {
         $("#header1").load("./layouts/header.html");
     });
+
     </script>
     <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
@@ -75,6 +76,11 @@
     <script src="js/main.js"></script>
     <script src="./js/general.js"></script>
     <script src="./js/blog.js"></script>
+    <script type="text/javascript"> $('.set-bg').each(function() {
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
+    });</script>
+    
 </body>
 
 </html>

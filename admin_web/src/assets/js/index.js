@@ -4,7 +4,7 @@ const doanh_thu = document.getElementById("doanh_thu");
 const orders_week = document.getElementById("orders_week");
 const total_user = document.getElementById("total_user");
 async function load_orders() {
-    const response = await fetch(`${api}/api/v1/orders`, {
+    const response = await fetch(`${api}/api/v1/orders/admin`, {
       method: "GET",
       headers: { 
         "Content-Type": "application/json",
@@ -445,3 +445,83 @@ async function submit1(productId) {
       alert("Cập nhật thất bại");
   }
 }
+
+async function load_chart(){
+    // Tạo dữ liệu ngẫu nhiên với 100 bản ghi là những ngày order khác nhau trong tháng hiện tại
+var orders = [];
+var currentDate = new Date();
+var currentMonth = currentDate.getMonth() + 1; // Lấy tháng hiện tại (0-indexed)
+var currentYear = currentDate.getFullYear();
+var orders_month = await fetch(`${api}/api/v1/orders/admin`, {
+    method: "GET",
+    headers: { 
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    },
+  }).then((res)=> res.json());
+orders_month.forEach((ele,i)=>{
+  orders.push({
+    "id": i,
+    "createdAt": ele.createdAt
+  });}
+)
+
+// Tính toán tổng số đơn hàng được tạo ra theo ngày trong tháng hiện tại
+var orderCountByDay = {};
+orders.forEach(order => {
+  var orderDate = new Date(order.createdAt);
+  var orderDay = orderDate.getDate(); // Lấy ngày của đơn hàng
+  orderCountByDay[orderDay] = (orderCountByDay[orderDay] || 0) + 1;
+});
+
+// Chuyển đổi dữ liệu để sử dụng cho biểu đồ
+var labels = Object.keys(orderCountByDay);
+var data = Object.values(orderCountByDay);
+
+// Tạo mảng nhãn cho trục y chứa tất cả các ngày trong tháng
+var daysInMonth = new Date(currentYear, currentMonth, 0).getDate();
+var yAxisLabels = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+
+// Tạo mảng số lượng đơn hàng tương ứng với mỗi ngày, nếu không có đơn hàng thì gán số lượng là 0
+var yAxisData = yAxisLabels.map(day => orderCountByDay[day] || 0);
+
+// Tạo biểu đồ
+var ctx = document.getElementById('orderChart').getContext('2d');
+var orderChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: yAxisLabels,
+    datasets: [{
+      label: 'Số đơn đặt hàng',
+      data: yAxisData,
+      backgroundColor: 'rgba(54, 162, 235, 0.5)',
+      borderColor: 'rgba(54, 162, 235, 1)',
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Date'
+        }
+      }],
+      yAxes: [{
+        scaleLabel: {
+          display: true,
+          labelString: 'Số đơn đặt hàng'
+        },
+        ticks: {
+          beginAtZero: true,
+          stepSize: 1 // Chỉ hiển thị các giá trị nguyên
+        }
+      }]
+    }
+  }
+});
+
+
+}
+load_chart()

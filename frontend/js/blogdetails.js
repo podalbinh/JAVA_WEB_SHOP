@@ -66,7 +66,7 @@ async function loadBlogDetail() {
     const  listComment= await fetch(`${api}/api/v1/comments/all/${BigInt(blog_id)}`).then((res) => res.json());
     const  blogdetail= await fetch(`${api}/api/v1/posts/${BigInt(blog_id)}`).then((res) => res.json());
     blog_detail_title.innerHTML+=title(blogdetail,listComment);
-    blog_detail_image.innerHTML+=image1();
+    blog_detail_image.innerHTML+=image(blogdetail);
     const result = splitIntoTwoSentences(blogdetail.body);
     result.forEach(text_sub =>  blog_detail_text.innerHTML+=text(text_sub))
 }

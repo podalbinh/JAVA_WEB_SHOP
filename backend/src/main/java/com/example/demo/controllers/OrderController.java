@@ -8,6 +8,7 @@ import com.example.demo.models.OrderDTO;
 
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -32,6 +33,11 @@ public class OrderController {
     @GetMapping
     public ResponseEntity<List<Order>> getAll() {
         return ResponseEntity.ok(orderService.findAll());
+    }
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_MODERATOR')" )
+    @GetMapping("/admin")
+    public ResponseEntity<List<Order>> getAllByAdmin() {
+        return ResponseEntity.ok(orderService.findAllByAdmin());
     }
 
     @GetMapping("/{id}")

@@ -18,16 +18,17 @@ function Blog(blog){
     minute: "2-digit",
     second: "2-digit"
     });
-    return ` <div class="col-lg-4 col-md-6 col-sm-6">
+    return `<div class="col-lg-4 col-md-6 col-sm-6">
     <div class="blog__item">
-        <div class="blog__item__pic set-bg" data-setbg=${blog.imageUrl}></div>
+        <div class="blog__item__pic" style="background-image: url('${blog.imageUrl}'); background-size: cover;"></div>
         <div class="blog__item__text">
             <span><img src="img/icon/calendar.png" alt=""> ${formattedDate}</span>
             <h5>${blog.title}</h5>
             <a href="blog-details.html" onclick="blog_detail(${blog.id})">Read More</a>
         </div>
     </div>
-</div>`
+</div>`;
+
 };
 
 async function loadBlog() {
