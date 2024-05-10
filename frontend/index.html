@@ -200,11 +200,8 @@
         });
 
             function handleCallback() {
-                console.log(21321321);
                 const urlParams = new URLSearchParams(window.location.search);
-                console.log(urlParams);
                 const token = urlParams.get('token');
-                console.log(token);
                 // Kiểm tra xem có token được trả về không
                 if (token) {
                     // Lưu token vào local storage
@@ -226,5 +223,6 @@
     <script src="./js/general.js"></script>
     <script src="./js/index.js" ></script>
     <script src="./js/shop.js" ></script>
+
 </body>
 </html>

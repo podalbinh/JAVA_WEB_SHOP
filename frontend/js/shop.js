@@ -115,12 +115,13 @@ async function addCartItemService(productId) {
 function addToCart(productId) {
     const cartItems = addCartItemService(productId);
     cartItems.then((data) => {
+        console.log(data)
         if(data === null) {
             alert("Đã có lỗi xảy ra");
         }
         else {
             alert("Thêm vào giỏ hàng thành công");
-            window.location.reload();
+           load();
         }
     });
 }   
@@ -131,7 +132,6 @@ function showProductDetail(productId) {
 }
 
 function loadProduct(products) {
-    console.log(products);
     product_div.innerHTML = "";
     if(directionSort == "asc") products.sort((a, b) => (a.price > b.price) ? 1 : -1);
     else products.sort((a, b) => (a.price < b.price) ? 1 : -1);

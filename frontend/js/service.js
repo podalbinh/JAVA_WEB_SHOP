@@ -21,8 +21,8 @@ function kiemtra(event) {
     window.location.href = "signIn.html";
   }
 }
+async function load() {
 if (token !== "") {
-  async function load() {
     let user = await fetchUser();
     document.getElementById('totalitem1').innerText = user.userCartItems.length;
     document.getElementById("dangnhap1").innerText = " ";
@@ -37,8 +37,8 @@ if (token !== "") {
     document.getElementById("danhmuc2").innerHTML += `
     <li onclick="logout()" href="#">Đăng Xuất</li>`;
   }
-  load();
 }
+load();
 async function search(event) {
   event.preventDefault();
   localStorage.setItem('query', document.getElementById("search-input").value.trim());

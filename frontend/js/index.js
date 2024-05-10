@@ -41,6 +41,7 @@ function Products_ao(product){
 </div>`
 };
 function Products_quan(product){
+    
     return `<div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
     <div class="product__item">
         <div class="product__item__pic set-bg" data-setbg="${product.image}">
@@ -55,6 +56,7 @@ function Products_quan(product){
         </div>
     </div>
 </div>`
+
 };
 
 loadProduct();

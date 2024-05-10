@@ -86,7 +86,7 @@ function comment(comment){
     second: "2-digit"
     });
     return `
-    <div class="d-flex flex-row user-info"><img class="rounded-circle" src="img/batman.png" width="40">
+    <div class="d-flex flex-row user-info"><img class="rounded-circle" src="img/batman.png" width="40" height="40">
     <div class="d-flex flex-column justify-content-start ml-2"><span class="d-block font-weight-bold name">${comment.user.username}</span>
         <span class="text-black-50">${formattedDate}</span></div>
 </div>
@@ -94,6 +94,19 @@ function comment(comment){
     <p class="comment-text">${comment.body}</p>
 </div>`
 }
+const defaultHeader = {
+    "Content-Type": "application/json",
+    Accept: "application/json",
+    Authorization: "Bearer " + localStorage.getItem("token"),
+  };
+const username_comment = document.getElementById("username_comment")
+async function load_username(){
+    let user = await fetch(`${api}/api/users/me`, {
+          headers: { ...defaultHeader },
+        }).then((res) => res.json());
+    username_comment.innerText=user.username
+}
+load_username();
 const listcommets = document.getElementById("comment")
 async function loadComment(){
     listcommets.innerHTML="";
@@ -106,7 +119,7 @@ function addcomment(){
         alert("Hãy viết một thứ gì đó")
         return;
     }
-    let currentDate = new Date();
+
     fetch(`${api}/api/v1/comments`, {
     method: "POST",
     headers: {
