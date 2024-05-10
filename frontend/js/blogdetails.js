@@ -94,32 +94,30 @@ function comment(comment){
     <p class="comment-text">${comment.body}</p>
 </div>`
 }
-const defaultHeader = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-    Authorization: "Bearer " + localStorage.getItem("token"),
-  };
 const username_comment = document.getElementById("username_comment")
 async function load_username(){
     let user = await fetch(`${api}/api/users/me`, {
           headers: { ...defaultHeader },
         }).then((res) => res.json());
-    username_comment.innerText=user.username
+    username_comment.innerText=(user.username==="")?user.username:""
 }
 load_username();
 const listcommets = document.getElementById("comment")
 async function loadComment(){
     listcommets.innerHTML="";
     const  listComment= await fetch(`${api}/api/v1/comments/all/${BigInt(blog_id)}`).then((res) => res.json());
-    console.log(listComment);
     listComment.forEach(element => listcommets.innerHTML+=comment(element))
 }
 function addcomment(){
     if( document.getElementById("text_comment").value  ===""){
         alert("Hãy viết một thứ gì đó")
         return;
-    }
-
+    } 
+    if(token === ""){
+        alert("Vui lòng đăng nhập để bình luận");
+        window.location.href = "signIn.html";
+        return;
+    }    
     fetch(`${api}/api/v1/comments`, {
     method: "POST",
     headers: {

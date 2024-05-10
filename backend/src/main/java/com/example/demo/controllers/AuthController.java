@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,6 +17,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,13 +26,17 @@ import com.example.demo.entities.ERole;
 import com.example.demo.entities.Role;
 import com.example.demo.entities.User;
 import com.example.demo.jwt.JwtTokenPovider;
+import com.example.demo.models.UserDTO;
 import com.example.demo.payload.request.LoginRequest;
 import com.example.demo.payload.request.SignUpRequest;
 import com.example.demo.payload.response.JwtResponse;
 import com.example.demo.payload.response.MessageResponse;
+import com.example.demo.security.AuthService;
 import com.example.demo.security.CustomUserDetails;
 import com.example.demo.services.RoleService;
 import com.example.demo.services.UserService;
+
+import io.swagger.v3.oas.annotations.Operation;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -46,6 +52,8 @@ public class AuthController {
     private RoleService roleService;
     @Autowired
     private PasswordEncoder encoder;
+     @Autowired
+    private AuthService authService;
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@RequestBody SignUpRequest signUpRequest) {
@@ -113,5 +121,23 @@ public class AuthController {
                 .map(item -> item.getAuthority()).collect(Collectors.toList());
         return ResponseEntity.ok(new JwtResponse(jwt, customUserDetails.getUsername(), customUserDetails.getEmail(),
                 customUserDetails.getPhone(), listRoles));
-    }
+    }            
+        @Operation(summary = "Update user with CurrentUser")
+        @PreAuthorize("hasRole('ROLE_USER')")
+        @PutMapping
+        public ResponseEntity<?> saveOrUpdateUser(UserDTO userDTO) {
+            User user = userService.findById(authService.getCurrentUserId());
+            user.setPhone(userDTO.getPhone());
+            if (userService.existsByUsername(userDTO.getUsername())) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Username is already"));
+            }
+            if (userService.existsByEmail(userDTO.getEmail())) {
+                return ResponseEntity.badRequest().body(new MessageResponse("Email is already"));
+            }
+            user.setPassword(encoder.encode(userDTO.getPassword()));
+            user.setEmail(userDTO.getEmail());
+            user.setUsername(userDTO.getUsername());
+            userService.saveOrUpdate(user);
+            return ResponseEntity.ok(new String("Update success!"));
+        }
 }

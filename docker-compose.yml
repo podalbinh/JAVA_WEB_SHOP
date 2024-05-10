@@ -12,7 +12,7 @@ services:
       MYSQL_USER: web_2023
       MYSQL_PASSWORD: root
     volumes:
-      - ./seed:/docker-entrypoint-initdb.d
+      - ./seed1:/docker-entrypoint-initdb.d
   backend:
     image: maven:3.8.6-jdk-11
     ports:
@@ -29,12 +29,20 @@ services:
     volumes:
       - ./backend:/example
     command: mvn spring-boot:run
-  nginx:
+  nginx1:
+    image: nginx:1.21.3
+    ports:
+      - 8081:80
+    volumes:
+      - ./frontend:/usr/share/nginx/html
+    depends_on:
+      - backend
+  nginx2:
     image: nginx:1.21.3
     ports:
       - 8008:80
     volumes:
-      - ./frontend:/usr/share/nginx/html
+      - ./admin_web/src:/usr/share/nginx/html
     depends_on:
       - backend
 volumes:
