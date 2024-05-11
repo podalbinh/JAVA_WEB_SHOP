@@ -98,6 +98,6 @@ public class UserController {
         user.setEmail(userDTO.getEmail());
         user.setUsername(userDTO.getUsername());
         userService.saveOrUpdate(user);
-        return ResponseEntity.ok(new String("Update success!"));
+        return ResponseEntity.ok(new MessageResponse("Update success!"));
     } 
 }

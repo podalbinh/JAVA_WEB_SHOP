@@ -97,9 +97,12 @@ function comment(comment){
 const username_comment = document.getElementById("username_comment")
 async function load_username(){
     let user = await fetch(`${api}/api/users/me`, {
-          headers: { ...defaultHeader },
+          headers: { 
+            "Content-Type": "application/json",
+          Accept: "application/json",
+          Authorization: "Bearer " + localStorage.getItem("token") },
         }).then((res) => res.json());
-    username_comment.innerText=(user.username==="")?user.username:""
+    username_comment.innerText=(user.username !=="")?user.username:""
 }
 load_username();
 const listcommets = document.getElementById("comment")

@@ -122,22 +122,22 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt, customUserDetails.getUsername(), customUserDetails.getEmail(),
                 customUserDetails.getPhone(), listRoles));
     }            
-        @Operation(summary = "Update user with CurrentUser")
-        @PreAuthorize("hasRole('ROLE_USER')")
-        @PutMapping
-        public ResponseEntity<?> saveOrUpdateUser(UserDTO userDTO) {
-            User user = userService.findById(authService.getCurrentUserId());
-            user.setPhone(userDTO.getPhone());
-            if (userService.existsByUsername(userDTO.getUsername())) {
-                return ResponseEntity.badRequest().body(new MessageResponse("Username is already"));
-            }
-            if (userService.existsByEmail(userDTO.getEmail())) {
-                return ResponseEntity.badRequest().body(new MessageResponse("Email is already"));
-            }
-            user.setPassword(encoder.encode(userDTO.getPassword()));
-            user.setEmail(userDTO.getEmail());
-            user.setUsername(userDTO.getUsername());
-            userService.saveOrUpdate(user);
-            return ResponseEntity.ok(new String("Update success!"));
+    @Operation(summary = "Update user with CurrentUser")
+    @PreAuthorize("hasRole('ROLE_USER')")
+    @PutMapping
+    public ResponseEntity<?> saveOrUpdateUser(@RequestBody UserDTO userDTO) {
+        User user = userService.findById(authService.getCurrentUserId());
+        user.setPhone(userDTO.getPhone());
+        if (userService.existsByUsername(userDTO.getUsername())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Username is already"));
         }
+        if (userService.existsByEmail(userDTO.getEmail())) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Email is already"));
+        }
+        user.setPassword(encoder.encode(userDTO.getPassword()));
+        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getUsername());
+        userService.saveOrUpdate(user);
+        return ResponseEntity.ok(new MessageResponse("Update success!"));
+    }
 }

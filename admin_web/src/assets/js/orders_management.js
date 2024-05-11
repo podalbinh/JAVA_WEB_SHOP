@@ -33,7 +33,7 @@ async function loadOrdersToTable() {
             <td>${order.firstName} ${order.lastName}</td> 
             <td>${order.phone}</td>  
             <td>${order.address}</td>  
-            <td>${order.total}</td>  
+            <td>${numberToVnd(order.total)}</td>  
             <td class="p-0">
                 <select class="form-select status-dropdown" data-order-id="${order.id}">
                     ${statusOptions} <!-- Các tùy chọn trạng thái -->
@@ -133,7 +133,7 @@ async function loadOrderDetails(orderId) {
                 <td>${index + 1}</td>
                 <td>${item.name}</td>
                 <td>${item.quantity}</td>
-                <td>${item.price * item.quantity}</td> <!-- Tổng giá trị của OrderItem -->
+                <td>${numberToVnd(item.price * item.quantity)}</td> <!-- Tổng giá trị của OrderItem -->
             </tr>
         `;
         modalBody.innerHTML += itemRow;
@@ -143,6 +143,14 @@ async function loadOrderDetails(orderId) {
     const modal = new bootstrap.Modal(document.getElementById("orderDetailsModal"));
     modal.show();
 }
+
+function numberToVnd(number) {
+    var formatter = new Intl.NumberFormat("vn-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return formatter.format(number);
+  }
 
 // Gọi hàm để tải dữ liệu vào bảng khi trang được tải
 document.addEventListener("DOMContentLoaded", loadOrdersToTable);

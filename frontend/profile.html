@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="zxx">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="Male_Fashion Template">
+    <meta name="keywords" content="Male_Fashion, unica, creative, html">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title> LOMDOM</title>
+
+    <!-- Google Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
+    rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <!-- Css Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" type="text/css">
+    <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="css/elegant-icons.css" type="text/css">
+    <link rel="stylesheet" href="css/magnific-popup.css" type="text/css">
+    <link rel="stylesheet" href="css/nice-select.css" type="text/css">
+    <link rel="stylesheet" href="css/owl.carousel.min.css" type="text/css">
+    <link rel="stylesheet" href="css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="css/style.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+    <!-- Page Preloder -->
+    <div id="preloder">
+        <div class="loader"></div>
+    </div>
+    <!-- Header Section Begin -->
+    <div id="header1"> </div>
+    <!-- Header Section End -->
+
+    <!-- Breadcrumb Section Begin -->
+    <section class="breadcrumb-option">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb__text">
+                        <h4>Hồ sơ</h4>
+                        <div class="breadcrumb__links">
+                            <a href="./index.html">Trang Chủ</a>
+                            <span>Hồ sơ</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+   <!-- Profile Section Begin -->
+    <section class="profile-section"> <!-- Use section to contain profile -->
+        <div class="container"> <!-- Ensure the same width as breadcrumb-option -->
+            <div class="row">
+                <!-- Thông tin cá nhân -->
+                <div class="col-lg-4">
+                    <div class="profile_user" id="profile_user">
+                        <!-- Nội dung thông tin cá nhân sẽ được thêm vào đây -->
+                    </div>
+                </div>
+                <!-- Bảng đơn hàng -->
+                <div class="col-lg-8">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title">Danh sách Đơn Hàng</h4>
+                            <div class="table-responsive">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Số thứ tự</th>
+                                            <th>Ngày đặt hàng</th>
+                                            <th>Tổng tiền</th>
+                                            <th>Trạng thái</th>
+                                            <th>Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="orderTableBody">
+                                        <!-- Dữ liệu đơn hàng sẽ được thêm vào đây bằng JavaScript -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal for updating user information -->
+                <div class="modal fade" id="editUserModal" tabindex="-1" role="dialog" aria-labelledby="editUserModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editUserModalLabel">Cập nhật thông tin</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="form-group">
+                                    <label for="editUsername">Tài khoản</label>
+                                    <input type="text" class="form-control" id="editUsername" placeholder="Nhập tài khoản" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="editEmail">Email</label>
+                                    <input type="email" class="form-control" id="editEmail" placeholder="Nhập email" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="editPhone">Phone</label>
+                                    <input type="text" class="form-control" id="editPhone" placeholder="Nhập số điện thoại" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="editPassword">Mật khẩu mới</label> <!-- Mật khẩu mới -->
+                                    <input type="password" class="form-control" id="editPassword" placeholder="Nhập mật khẩu mới" />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="button" class="btn btn-primary" id="saveUserChanges">Lưu</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal to show OrderItem details -->
+                <div class="modal fade" id="orderDetailsModal" tabindex="-1" role="dialog" aria-labelledby="orderDetailsModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-lg" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title" id="orderDetailsModalLabel">Chi tiết Đơn Hàng</h5>
+                          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <table class="table table-striped">
+                            <thead>
+                              <tr>
+                                <th> Số thứ tự </th>
+                                <th> Tên Order-Item </th>
+                                <th> Số lượng </th>
+                                <th> Tổng tiền </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                        </div>
+                        <div class="modal-footer">
+                          <button id="btn_close_modal" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </section>
+    <!-- Profile Section End -->
+    <!-- Shop Section End -->
+    <!-- Footer Section Begin -->
+    <div include-html="./layouts/footer.html"></div>
+   <!-- Footer Section End -->
+   <script type="text/javascript">
+    $(function () {
+        $("#header1").load("./layouts/header.html");
+    });
+
+    </script>
+    <script src="js/jquery-3.3.1.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.nice-select.min.js"></script>
+    <script src="js/jquery.nicescroll.min.js"></script>
+    <script src="js/jquery.magnific-popup.min.js"></script>
+    <script src="js/jquery.countdown.min.js"></script>
+    <script src="js/jquery.slicknav.js"></script>
+    <script src="js/mixitup.min.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
+    <script src="./js/general.js"></script>
+    <script src="./js/profile.js"></script>
+</body>
+
+</html>

@@ -22,19 +22,21 @@ function kiemtra(event) {
   }
 }
 async function load() {
-if (token !== "") {
+  if (token !== "") {
     let user = await fetchUser();
     document.getElementById('totalitem1').innerText = user.userCartItems.length;
     document.getElementById("dangnhap1").innerText = " ";
     document.getElementById("username1").innerText = user.username;
     document.getElementById("username1").href = "#";
     document.getElementById("danhmuc1").innerHTML += `
-    <li onclick="logout()" style="color: white;padding: -1px 15px" href="#" >Đăng Xuất</li>`;
+    <li onclick= "loadProfile()" style="color: white;padding: 10px 10px; display: block;" href="#">Hồ sơ</li>
+    <li onclick="logout()" style="color: white;padding: 10px 10px; display: block;" href="#" >Đăng Xuất</li>`;
     document.getElementById('totalitem2').innerText = user.userCartItems.length;
     document.getElementById("dangnhap2").innerText = " ";
     document.getElementById("username2").innerText = user.username;
     document.getElementById("username2").href = "#";
     document.getElementById("danhmuc2").innerHTML += `
+    <li onclick= "loadProfile() href="#">Hồ sơ</li>
     <li onclick="logout()" href="#">Đăng Xuất</li>`;
   }
 }
@@ -53,4 +55,9 @@ function numberToVnd(number) {
     currency: "VND",
   });
   return formatter.format(number);
+}
+
+// Profile
+function loadProfile() {
+  window.location.href = "profile.html"
 }

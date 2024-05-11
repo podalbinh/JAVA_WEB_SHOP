@@ -155,15 +155,18 @@ confirmAddUserButton.addEventListener("click", async () => {
     // Hiển thị lại các trường và nhãn
     document.querySelector("label[for='password']").style.display = "block";
     document.getElementById("password").style.display = "block";
+    // Đóng modal và đặt lại các trường
+    $("#addUserModal").modal("hide");
+    document.getElementById("addUserForm").reset(); // Đặt lại form
+    await loadUsers(); // Cập nhật lại bảng
   } else { // Nếu là thêm mới
     const newUser = { username, email, password, phone };
     await addUserService(newUser);
+    // Đóng modal và đặt lại các trường
+    $("#addUserModal").modal("hide");
+    document.getElementById("addUserForm").reset(); // Đặt lại form
+    await loadUsers(); // Cập nhật lại bảng
   }
-
-  // Đóng modal và đặt lại các trường
-  $("#addUserModal").modal("hide");
-  document.getElementById("addUserForm").reset(); // Đặt lại form
-  await loadUsers(); // Cập nhật lại bảng
 });
 
 // Sự kiện nhấn nút Cancel

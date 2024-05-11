@@ -129,11 +129,8 @@ const cancelAddPostButton = document.querySelector("#addPostModal .btn-secondary
 // Sự kiện nhấn nút Confirm trong modal
 confirmAddPostButton.addEventListener("click", async () => {
   const postTitle = document.getElementById("postTitle").value.trim();
-  console.log(postTitle);
   const postBody = document.getElementById("postBody").value.trim();
-  console.log(postBody);
   const postImageUrl= document.getElementById("postImageUrl").value.trim();
-  console.log(postImageUrl);
   if (currentEditPostId) { // Nếu đang chỉnh sửa
     await updatePostService(currentEditPostId, postTitle, postBody, postImageUrl);
     currentEditPostId = null; // Đặt lại sau khi chỉnh sửa
