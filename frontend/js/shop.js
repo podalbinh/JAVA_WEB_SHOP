@@ -25,7 +25,6 @@ async function getProduct() {
 getProduct();
 
 function getProductByChoose() {
-    console.log(123);
     const categoryId = document.getElementsByClassName("category__checkbox");
     const categoryTick =[];
     for(let i=0; i<categoryId.length; i++) {
@@ -89,11 +88,27 @@ function FilterProduct(categoryTick=[], priceTick=[], sizeTick=[], colorTick=[])
     loadProduct(productAfterFilter);
 }
 
-function changeDirectionSort() {    
-    directionSort = select_sort.value;
-    loadProduct(products);
-}
+function changeDirectionSort() {
+    directionSort = select_sort.value; // Get the current selected value from the dropdown
 
+    // Sort products based on the selected direction
+    if (directionSort === "asc") {
+        products.sort((a, b) => a.price - b.price); // Sort ascending
+    } else {
+        products.sort((a, b) => b.price - a.price); // Sort descending
+    }
+
+    // Update the dropdown to show the current sort direction
+    Array.from(select_sort.options).forEach(option => {
+        if(option.value === directionSort) {
+            option.selected = true;
+        } else {
+            option.selected = false;
+        }
+    });
+
+    loadProduct(products); // Reload the product display with the new sort order
+}
 
 async function addCartItemService(productId) {
     const cartItems = await fetch(`${api}/api/v1/cart-items`, {
@@ -114,6 +129,11 @@ async function addCartItemService(productId) {
 
 function addToCart(productId) {
     const cartItems = addCartItemService(productId);
+    if(token=== ""){
+        alert("Hãy đăng nhập");
+        window.location.href = "signIn.html";
+        return;
+    }
     cartItems.then((data) => {
         console.log(data)
         if(data === null) {
@@ -131,32 +151,55 @@ function showProductDetail(productId) {
     window.location.href = "shop-details.html";
 }
 
+function setupPagination(products) {
+    totalPages = Math.ceil(products.length / pageSize);
+    product__pagination.innerHTML = ""; // Clear existing pagination links
+
+    for (let i = 1; i <= totalPages; i++) {
+        let pageLink = document.createElement('a');
+        pageLink.innerText = i;
+        pageLink.className = 'page-link btn btn-light'; // Added Bootstrap classes for styling
+        if (i === pageNo) {
+            pageLink.classList.add('active'); // Highlight the current page
+        }
+        pageLink.addEventListener('click', function() {
+            pageNo = i;
+            loadProduct(products);
+        });
+
+        product__pagination.appendChild(pageLink);
+    }
+}
 function loadProduct(products) {
-    product_div.innerHTML = "";
-    if(directionSort == "asc") products.sort((a, b) => (a.price > b.price) ? 1 : -1);
-    else products.sort((a, b) => (a.price < b.price) ? 1 : -1);
-    products.forEach((product) => { 
+    const start = (pageNo - 1) * pageSize;
+    const end = start + pageSize;
+    const paginatedProducts = products.slice(start, end);
+    
+    product_div.innerHTML = ""; // Clear existing products
+    paginatedProducts.forEach(product => {
+        // Code to display each product
         product_div.innerHTML += `
-        <div class="col-lg-4 col-md-6 col-sm-6">
-            <div class="product__item">
-                <div products-setbg="${product.image}" class="product__item__pic set-bg" products width="260" height="260">
-                    <ul class="product__hover">
-                        <li><a href="#"><img src="img/icon/search.png" alt="" onclick="showProductDetail(${product.id})"></a></li>
-                    </ul>
-                </div>
-                <div class="product__item__text">
-                    <h6>${product.name}</h6>
-                    <a href="#" class="add-cart" onclick="addToCart(${product.id})">+ Add To Cart</a>
-                    <h5>${numberToVnd(product.price)}</h5>
+            <div class="col-lg-4 col-md-6 col-sm-6">
+                <div class="product__item">
+                    <div products-setbg="${product.image}" class="product__item__pic set-bg" products width="260" height="260">
+                        <ul class="product__hover">
+                            <li><a href="#"><img src="img/icon/search.png" alt="" onclick="showProductDetail(${product.id})"></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6>${product.name}</h6>
+                        <a href="#" class="add-cart" onclick="addToCart(${product.id})">+ Add To Cart</a>
+                        <h5>${numberToVnd(product.price)}</h5>
+                    </div>
                 </div>
             </div>
-        </div>
         `;
     });
     $('.set-bg').each(function() {
         var bg = $(this).attr('products-setbg');
         $(this).css('background-image', 'url(' + bg + ')');
     });
+    setupPagination(products); // Setup pagination each time products are loaded
 }
 
 
