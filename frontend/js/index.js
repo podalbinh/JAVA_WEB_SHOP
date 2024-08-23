@@ -25,6 +25,10 @@ async function loadProduct() {
     });
 }
 function Products_ao(product){
+    if (product.image.includes("vngoods")) {
+        product.image = "https://invietnhat.vn/wp-content/uploads/2023/08/logo-shop-thoi-trang-nu-1.jpg";
+    }
+    
     return `<div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals ">
     <div class="product__item">
         <div class="product__item__pic set-bg" data-setbg="${product.image}">
@@ -41,7 +45,9 @@ function Products_ao(product){
 </div>`
 };
 function Products_quan(product){
-    
+    if (product.image.includes("vngoods")) {
+        product.image = "https://invietnhat.vn/wp-content/uploads/2023/08/logo-shop-thoi-trang-nu-1.jpg";
+    }
     return `<div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
     <div class="product__item">
         <div class="product__item__pic set-bg" data-setbg="${product.image}">

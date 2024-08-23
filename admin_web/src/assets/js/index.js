@@ -447,7 +447,6 @@ async function submit1(productId) {
 }
 
 async function load_chart(){
-    // Tạo dữ liệu ngẫu nhiên với 100 bản ghi là những ngày order khác nhau trong tháng hiện tại
 var orders = [];
 var currentDate = new Date();
 var currentMonth = currentDate.getMonth() + 1; // Lấy tháng hiện tại (0-indexed)
@@ -472,7 +471,11 @@ var orderCountByDay = {};
 orders.forEach(order => {
   var orderDate = new Date(order.createdAt);
   var orderDay = orderDate.getDate(); // Lấy ngày của đơn hàng
-  orderCountByDay[orderDay] = (orderCountByDay[orderDay] || 0) + 1;
+  var ordersYear= orderDate.getFullYear();
+  var ordersMonth= orderDate.getMonth();
+  if(ordersYear == currentYear && ordersMonth==currentMonth){
+     orderCountByDay[orderDay] = (orderCountByDay[orderDay] || 0) + 1;
+  }
 });
 
 // Chuyển đổi dữ liệu để sử dụng cho biểu đồ

@@ -15,8 +15,10 @@ public interface UserRepository extends JpaRepository<User,Long> {
     User findByUsername(String username);
     boolean existsByUsername(String username);
     boolean existsByEmail(String email);
-    Optional<User> findByUsernameAndProviderId(String username, String providerId);
+    Optional<User> findByUsernameAndProviderIdAndEmail(String username, String providerId,String email);
     @Query("SELECT u FROM User u WHERE " +
     "u.username LIKE CONCAT('%',:query, '%')")
     List<User> searchUser(String query);
+    Optional<User> findByUsernameAndProviderId(String email, String registrationId);
+    Optional<User> findByEmailAndProviderId(String email, String registrationId);
 }

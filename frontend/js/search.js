@@ -9,6 +9,9 @@ async function searchProduct() {
     try {
         
         data.forEach(element => {
+            if(element.image.includes("vngoods")){
+                element.image="https://invietnhat.vn/wp-content/uploads/2023/08/logo-shop-thoi-trang-nu-1.jpg";
+            }
             shop_search.innerHTML += `
             <div class="col-lg-4 col-md-6 col-sm-6">
                 <div class="product__item">

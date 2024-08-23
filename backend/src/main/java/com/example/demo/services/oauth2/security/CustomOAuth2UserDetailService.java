@@ -55,8 +55,8 @@ public class CustomOAuth2UserDetailService extends DefaultOAuth2UserService {
         if (ObjectUtils.isEmpty(oAuth2UserDetails)) {
             throw new RuntimeException("Can not found oauth2 user from properties");
         }
-        Optional<User> user = userRepository.findByUsernameAndProviderId(
-                oAuth2UserDetails.getName(),
+        Optional<User> user = userRepository.findByEmailAndProviderId(
+                oAuth2UserDetails.getEmail(),
                 oAuth2UserRequest.getClientRegistration().getRegistrationId());
         User userDetail;
         if (user.isPresent()) {

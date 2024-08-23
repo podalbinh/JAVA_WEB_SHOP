@@ -174,9 +174,14 @@ function loadProduct(products) {
     const start = (pageNo - 1) * pageSize;
     const end = start + pageSize;
     const paginatedProducts = products.slice(start, end);
-    
     product_div.innerHTML = ""; // Clear existing products
     paginatedProducts.forEach(product => {
+        console.log(product.image)
+        if (product.image.includes("vngoods")) {
+            product.image = "https://invietnhat.vn/wp-content/uploads/2023/08/logo-shop-thoi-trang-nu-1.jpg";
+        }
+        
+        
         // Code to display each product
         product_div.innerHTML += `
             <div class="col-lg-4 col-md-6 col-sm-6">

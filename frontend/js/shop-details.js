@@ -7,11 +7,21 @@ async function getProductDetail() {
     insertProductDetail();
 }
 getProductDetail();
+function numberToVnd(number) {
+    var formatter = new Intl.NumberFormat("vn-VN", {
+      style: "currency",
+      currency: "VND",
+    });
+    return formatter.format(number);
+  }
 function insertProductDetail() {
-    console.log(product_detail);
-    document.getElementById("product__name").innerHTML = `
+    if (product_detail.image.includes("vngoods")) {
+        product_detail.image = "https://invietnhat.vn/wp-content/uploads/2023/08/logo-shop-thoi-trang-nu-1.jpg";
+    }
+    
+    document.getElementById("product__name").innerHTML =`
         <h4>${product_detail.name}</h4>`;
-    document.getElementById("product__price").innerHTML = `
+    document.getElementById("product__price").innerHTML =`
         <h3>${numberToVnd(product_detail.price)}</h3>`;
     document.getElementById("product__description").innerHTML = `
         <p>${product_detail.description}</p>`;

@@ -2,6 +2,9 @@ package com.example.demo.exception;
 
 import java.util.Date;
 
+import org.apache.catalina.connector.ClientAbortException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,4 +37,12 @@ public class GlobalExceptionHandler {
                         webRequest.getDescription(false));
                 return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+        private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+
+    @ExceptionHandler(ClientAbortException.class)
+    public void handleClientAbortException(ClientAbortException e) {
+        // Log the exception at a lower level
+        logger.debug("Client aborted the connection: {}", e.getMessage());
+        // You can also choose not to log this if it happens frequently and is not critical
+    }
 }

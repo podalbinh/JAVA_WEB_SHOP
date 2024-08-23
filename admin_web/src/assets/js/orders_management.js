@@ -24,7 +24,21 @@ async function loadOrdersToTable() {
 
     for (const [index, order] of orders.entries()) {
         const row = document.createElement("tr");
-        
+        const dateObj = new Date(order.createdAt);
+
+    // Function to add leading zero to day, month, hours, minutes, and seconds if needed
+    const addLeadingZero = (number) => (number < 10 ? `0${number}` : number);
+
+    // Extract the components of the date
+    const day = addLeadingZero(dateObj.getDate());
+    const month = addLeadingZero(dateObj.getMonth() + 1); // Months are zero-based in JavaScript
+    const year = dateObj.getFullYear();
+    const hours = addLeadingZero(dateObj.getHours());
+    const minutes = addLeadingZero(dateObj.getMinutes());
+    const seconds = addLeadingZero(dateObj.getSeconds());
+
+    // Format the date in 'dd-mm-yyyy hh:mm:ss'
+    const date = `${day}-${month}-${year} ${hours}:${minutes}:${seconds}`;
         // Tạo dropdown cho trạng thái và nút cập nhật
         const statusOptions = await generateStatusOptions(order.status.id);
         
@@ -32,10 +46,11 @@ async function loadOrdersToTable() {
             <td>${index + 1}</td> 
             <td>${order.firstName} ${order.lastName}</td> 
             <td>${order.phone}</td>  
-            <td>${order.address}</td>  
+            <td >${order.address}</td>  
             <td>${numberToVnd(order.total)}</td>  
-            <td class="p-0">
-                <select class="form-select status-dropdown" data-order-id="${order.id}">
+            <td>${date}</td>  
+            <td class="p-0" >
+                <select class="statuss status-dropdown" data-order-id="${order.id}">
                     ${statusOptions} <!-- Các tùy chọn trạng thái -->
                 </select>
             </td>
