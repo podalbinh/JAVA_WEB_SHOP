@@ -472,7 +472,8 @@ orders.forEach(order => {
   var orderDate = new Date(order.createdAt);
   var orderDay = orderDate.getDate(); // Lấy ngày của đơn hàng
   var ordersYear= orderDate.getFullYear();
-  var ordersMonth= orderDate.getMonth();
+  var ordersMonth= orderDate.getMonth()+1;
+  console.log(ordersYear,ordersMonth)
   if(ordersYear == currentYear && ordersMonth==currentMonth){
      orderCountByDay[orderDay] = (orderCountByDay[orderDay] || 0) + 1;
   }
