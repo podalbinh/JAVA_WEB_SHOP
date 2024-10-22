@@ -1,8 +1,9 @@
 package com.example.demo.controllers;
 
 
-import com.example.demo.entities.Image;
-import com.example.demo.services.ImageService;
+import com.example.demo.entities.ImageProduct;
+import com.example.demo.entities.ImageUser;
+import com.example.demo.services.ImageProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -14,22 +15,22 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("api/v1/images")
+@RequestMapping("api/v1/images-products")
 @RequiredArgsConstructor
-public class ImageController {
+public class ImageProductController {
     @Autowired
-    private final ImageService imageService;
+    private final ImageProductService imageProductService;
 
     // Lấy danh sách ảnh
     @GetMapping("")
     public ResponseEntity<?> getAllImage() {
-        return ResponseEntity.ok(imageService.getAllImage());
+        return ResponseEntity.ok(imageProductService.getAllImage());
     }
 
     // Xem ảnh
-    @GetMapping("{id}")
-    public ResponseEntity<?> readImage(@PathVariable Integer id) {
-        Image image = imageService.getImage(id);
+    @GetMapping("{product-id}")
+    public ResponseEntity<?> readImage(@PathVariable Long id) {
+        ImageProduct image = imageProductService.getImage(id);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(image.getType()))
                 .body(image.getData());
@@ -37,14 +38,14 @@ public class ImageController {
 
     // Upload ảnh
     @PostMapping("")
-    public ResponseEntity<?> uploadImage(@ModelAttribute("file") MultipartFile file, @RequestParam(required = false) Long userId,@RequestParam(required = false) Long productId) {
-        return new ResponseEntity<>(imageService.uploadImage(file,userId,productId), HttpStatus.CREATED);
+    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file,@RequestParam(required = false) Long productId) {
+        return new ResponseEntity<>(imageProductService.uploadImage(file,productId), HttpStatus.CREATED);
     }
 
     // Download ảnh
     @GetMapping("/download/{id}")
-    public ResponseEntity<?> downloadImage(@PathVariable Integer id) {
-        Image image = imageService.getImage(id);
+    public ResponseEntity<?> downloadImage(@PathVariable Long id) {
+        ImageProduct image = imageProductService.getImage(id);
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(image.getType()))
                 .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + image.getName() + "\"")
@@ -53,9 +54,24 @@ public class ImageController {
 
     // Xóa ảnh
     @DeleteMapping("{id}")
-    public ResponseEntity<?> deleteImage(@PathVariable Integer id) {
-        imageService.deleteImage(id);
+    public ResponseEntity<?> deleteImage(@PathVariable Long id) {
+        imageProductService.deleteImage(id);
         return ResponseEntity.noContent().build(); // 204
+    }
+
+    // Xem ảnh với product id
+    @GetMapping("/products/{id}")
+    public ResponseEntity<?> readImageWithProductId(@PathVariable Long id) {
+        ImageProduct image = imageProductService.getImageWithProductId(id);
+        return ResponseEntity.ok()
+                .contentType(MediaType.parseMediaType(image.getType()))
+                .body(image.getData());
+    }
+
+    // Update ảnh
+    @PutMapping("")
+    public ResponseEntity<?> updateImage(@ModelAttribute("file") MultipartFile file, @RequestParam(required = false) Long productId) {
+        return new ResponseEntity<>(imageProductService.updateImage(file,productId), HttpStatus.CREATED);
     }
 }
 

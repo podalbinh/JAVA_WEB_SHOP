@@ -1,14 +1,16 @@
 package com.example.demo.services;
 
-import com.example.demo.entities.Image;
+import com.example.demo.entities.ImageProduct;
 import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
-public interface ImageService {
-    public List<Image> getAllImage();
-    public Image getImage(Integer id);
-    public Image uploadImage(MultipartFile file, @Param("userId") Long userId,@Param("productId") Long productId);
-    public void deleteImage(Integer id);
+public interface ImageProductService {
+    public List<ImageProduct> getAllImage();
+    public ImageProduct getImage(Long id);
+    public ImageProduct getImageWithProductId(Long productId);
+    public ImageProduct uploadImage(MultipartFile file, @Param("productId") Long productId);
+    public void deleteImage(Long id);
+    public ImageProduct updateImage(MultipartFile file,Long productId);
 }

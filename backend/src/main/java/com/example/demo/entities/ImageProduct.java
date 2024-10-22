@@ -10,12 +10,12 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @Entity
-@Table(name = "image")
-public class Image {
+@Table(name = "image_product")
+public class ImageProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -30,8 +30,6 @@ public class Image {
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    @Column(name ="user_id")
-    private Long userId;
 
     @Column(name="product_id")
     private Long productId;
@@ -41,11 +39,10 @@ public class Image {
         createdAt = LocalDateTime.now();
     }
 
-    public Image(String name, String type, byte[] data,Long userId,Long productId) {
+    public ImageProduct(String name, String type, byte[] data, Long productId) {
         this.name = name;
         this.type = type;
         this.data = data;
         this.productId=productId;
-        this.userId=userId;
     }
 }

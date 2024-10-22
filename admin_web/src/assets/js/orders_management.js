@@ -46,9 +46,9 @@ async function loadOrdersToTable() {
             <td>${index + 1}</td> 
             <td>${order.firstName} ${order.lastName}</td> 
             <td>${order.phone}</td>  
-            <td >${order.address}</td>  
-            <td>${numberToVnd(order.total)}</td>  
+            <td class="limited-body">${order.address}</td>  
             <td>${date}</td>  
+            <td>${numberToVnd(order.total)}</td>  
             <td class="p-0" >
                 <select class="statuss status-dropdown" data-order-id="${order.id}">
                     ${statusOptions} <!-- Các tùy chọn trạng thái -->
